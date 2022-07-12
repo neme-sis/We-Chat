@@ -22,14 +22,21 @@ const Chat = () => {
     const send = async (e)=>{
         e.preventDefault();
         const {uid, photoURL,displayName} = firebase.auth().currentUser;
+
+        const msg = sendText.current.value
+        sendText.current.value="";
+
+        const msgArray = msg.split("");
+        const allSpace = msgArray.every(e=>e===" ")
+
+        if(!msg || allSpace)    return;
         await messageCollection.add({
-            text: sendText.current.value,
+            text: msg,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             uid,
             photoURL,
             displayName
         });
-        sendText.current.value = "";
         end.current.scrollIntoView({behaviour: 'smooth'});
     }
     useEffect(()=>{
