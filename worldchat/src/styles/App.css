@@ -1,33 +1,38 @@
-*{
+* {
   box-sizing: border-box;
 }
-.App{
+.App {
   min-height: 100vh;
   background: #2f2f2f;
   display: flex;
   flex-direction: column;
   color: white;
 }
-h2{
+h2 {
   position: fixed;
   width: 100%;
   z-index: 200;
-  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   color: red;
   padding-left: 10px;
   box-shadow: 0px 5px 10px #000;
   margin: 10px;
-  background: linear-gradient(90deg, rgb(51, 51, 51), rgb(51, 51, 51), rgb(255, 62, 62));
+  background: linear-gradient(
+    90deg,
+    rgb(51, 51, 51),
+    rgb(51, 51, 51),
+    rgb(255, 62, 62)
+  );
   height: 32px;
 }
-h2 img{
+h2 img {
   float: right;
   height: 30px;
   width: 30px;
   border-radius: 50%;
   margin-right: 10px;
 }
-h2 span button{
+h2 span button {
   font-size: small;
   float: right;
   margin-right: 20px;
@@ -40,18 +45,18 @@ h2 span button{
   background-color: #2f2f2f;
 }
 
-h2 span button:hover{
+h2 span button:hover {
   background: #fff;
-  color: black
+  color: black;
 }
 
-img{
+img {
   height: 20px;
   width: 20px;
   border-radius: 50%;
   margin-right: 10px;
 }
-.chat-all{
+.chat-all {
   margin: 20px;
   margin-top: 100px;
   justify-self: start;
@@ -59,7 +64,7 @@ img{
   display: flex;
   flex-direction: column;
 }
-.chat{
+.chat {
   box-shadow: 0px 10px 5px black;
   margin-bottom: 12px;
   width: 60%;
@@ -73,8 +78,8 @@ img{
   word-spacing: -0.1px;
   text-align: left !important;
 }
-.sent{
-  background:rgb(255, 62, 62);
+.sent {
+  background: rgb(255, 62, 62);
   align-self: end;
   align-items: flex-end;
   position: relative;
@@ -83,7 +88,7 @@ img{
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
-.recieved{
+.recieved {
   background: rgb(51, 51, 51);
   border-top-left-radius: 0px;
   border-top-right-radius: 20px;
@@ -91,7 +96,7 @@ img{
   border-bottom-right-radius: 20px;
 }
 
-.sent .user-details{
+.sent .user-details {
   display: flex;
   background-color: crimson;
   width: 100%;
@@ -100,12 +105,12 @@ img{
   height: 30px;
   border-top-left-radius: 20px;
 }
-.sent .user-details img{
+.sent .user-details img {
   order: 2;
   margin-left: 10px;
 }
 
-.recieved .user-details{
+.recieved .user-details {
   display: flex;
   background-color: #0f0f0f;
   width: 100%;
@@ -114,19 +119,19 @@ img{
   padding-top: 2px;
   border-top-right-radius: 20px;
 }
-.user-details p{
+.user-details p {
   margin: 0;
   text-transform: capitalize;
   font-weight: 600;
   opacity: 80%;
 }
-.text{
+.text {
   font-size: 1.1rem;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   padding: 5px;
   text-align: justify;
 }
-.form{
+.form {
   position: sticky;
   bottom: 0;
   height: 50px;
@@ -137,82 +142,14 @@ img{
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.form input{
+.form input {
   background-color: rgb(255, 255, 255);
   border-radius: 20px;
   box-shadow: inset 2px 2px 5px black;
   width: 80%;
   font-size: 1rem;
 }
-.box{
-  border-radius: 20px;
-  color: red;
-  margin-top: 20%;
-  margin-left: 50%;
-  transform: translate(-50%, -50%);
-  height: 200px;
-  width: 200px;
-  display: flex;
-  flex-direction: column;
-  background: inherit;
-}
-.box h3:first-child{
-  margin-top: 30%;
-}
-.box h3:last-child{
-  margin-top: -10px;
-}
-.box h3{
-  text-align: center;
-  color: red;
-  text-shadow: 1px 1px 5px crimson;
-}
-.box{
-  position: relative;
-  overflow: hidden;
-  box-shadow: pink 2px 2px 20px;
-  font-size: 1.5rem;
-}
-.box::before{
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  content: '';
-  height: 95%;
-  width: 95%;
-  position: absolute;
-  background: linear-gradient(135deg, rgb(51,51,51) 40%, crimson);
-  z-index: -500;
-  border-radius: inherit;
-}
-.box::after{
-  top: -50%;
-  left: 25%;
-  content: '';
-  background: linear-gradient(180deg, rgb(0, 0, 0), rgb(51,51,51), rgb(255, 56, 89));
-  position: absolute;
-  z-index: -600;
-  height: 200%;
-  width: 50%;
-  animation: rotate 2000ms linear infinite;
-}
-/* .box:hover::after{
-  transform: rotate(90deg);
-} */
-@keyframes rotate {
-  100%{
-    transform: rotate(360deg);
-  }
-}
-.wechat h2{
-  text-align: center;
-  height: fit-content;
-}
-.wechat h2 span{
-  font-size: small;
-  color: #fff;
-}
-.signin{
+.signin {
   width: 50%;
   transform: translateX(50%);
   background-color: grey;
@@ -226,16 +163,16 @@ img{
   justify-content: center;
   align-items: center;
 }
-.signin img{
+.signin img {
   height: 30px;
   width: 30px;
 }
 @media screen and (max-width: 400px) {
-  .box{
+  .box {
     margin-top: 50%;
   }
 }
-.send-text{
+.send-text {
   color: crimson;
   font-weight: 600;
   font-family: cursive;
