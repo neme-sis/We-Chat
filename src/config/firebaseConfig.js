@@ -4,12 +4,12 @@ import "firebase/compat/auth"; //for user authentication
 import { useAuthState } from "react-firebase-hooks/auth"; //auth hook
 
 const firebaseConfigOptions = {
-  apiKey: "AIzaSyDDp_Kf6fcm5uPYWtET9C98ZRuGpcLnXfo",
-  authDomain: "worldchat-demo.firebaseapp.com",
-  projectId: "worldchat-demo",
-  storageBucket: "worldchat-demo.appspot.com",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.appspot.com`,
   messagingSenderId: "671810641127",
-  appId: "1:671810641127:web:64f8665408fa7085b15642",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
   measurementId: "G-956ZM5MKF3",
 };
 
