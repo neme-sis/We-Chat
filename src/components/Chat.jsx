@@ -8,6 +8,7 @@ import "firebase/compat/auth"; //for user authentication
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useRef } from "react";
 import { useEffect } from "react";
+import SignOut from "./SignOut";
 
 const Chat = () => {
   const messageCollection = firebase.firestore().collection("messages");
@@ -50,6 +51,15 @@ const Chat = () => {
 
   return (
     <div>
+      <header className="App-header">
+        <h2>
+          We Chat
+          <img src={firebase.auth().currentUser.photoURL} alt="" />
+          <span>
+            <SignOut />
+          </span>
+        </h2>
+      </header>
       <div className="chat-all">
         {messages &&
           messages.map((text) => {
