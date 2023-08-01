@@ -1,56 +1,61 @@
+@import "../var.scss";
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 * {
   box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 .App {
   min-height: 100vh;
-  background: #2f2f2f;
+  background: $backgroundDark;
   display: flex;
   flex-direction: column;
   color: white;
 }
-h2 {
-  position: fixed;
-  width: 100%;
-  z-index: 200;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  color: red;
-  padding-left: 10px;
-  box-shadow: 0px 5px 10px #000;
-  margin: 10px;
-  background: linear-gradient(
-    90deg,
-    rgb(51, 51, 51),
-    rgb(51, 51, 51),
-    rgb(255, 62, 62)
-  );
-  height: 32px;
-}
-h2 img {
-  float: right;
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-h2 span button {
-  font-size: small;
-  float: right;
-  margin-right: 20px;
-  border: solid white 1px;
-  padding: 4px;
-  cursor: pointer;
-  font-style: initial;
-  color: white;
-  margin-top: 2px;
-  background-color: #2f2f2f;
-}
+// h2 {
+//   position: fixed;
+//   width: 100%;
+//   z-index: 200;
+//   
+//   color: red;
+//   padding-left: 10px;
+//   box-shadow: 0px 5px 10px #000;
+//   margin: 10px;
+//   background: linear-gradient(
+//     90deg,
+//     rgb(51, 51, 51),
+//     rgb(51, 51, 51),
+//     rgb(255, 62, 62)
+//   );
+//   height: 32px;
+// }
+// h2 img {
+//   float: right;
+//   height: 30px;
+//   width: 30px;
+//   border-radius: 50%;
+//   margin-right: 10px;
+// // }
+// h2 span button {
+//   font-size: small;
+//   float: right;
+//   margin-right: 20px;
+//   border: solid white 1px;
+//   padding: 4px;
+//   cursor: pointer;
+//   font-style: initial;
+//   color: white;
+//   margin-top: 2px;
+//   background-color: #2f2f2f;
+// }
 
-h2 span button:hover {
-  background: #fff;
-  color: black;
-}
+// h2 span button:hover {
+//   background: #fff;
+//   color: black;
+// }
 
-img {
+/*img {
   height: 20px;
   width: 20px;
   border-radius: 50%;
@@ -74,7 +79,6 @@ img {
   word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* white-space: nowrap; */
   word-spacing: -0.1px;
   text-align: left !important;
 }
@@ -179,3 +183,4 @@ img {
   border-top-right-radius: 100%;
   border-bottom-right-radius: 100%;
 }
+*/
