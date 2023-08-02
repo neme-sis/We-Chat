@@ -6,13 +6,16 @@ import "firebase/compat/auth"; //for user authentication
 
 import { FcGoogle } from "react-icons/fc";
 import "../styles/UserAuth.scss";
-import { Route, Routes } from "react-router-dom";
-import SignInModal from "../components/SignInModal";
-import SignUpModal from "../components/SignUpModal";
-const UserAuth = ({children, ...props}) => {
-  function signInAuthWithGoogle() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider);
+
+const UserAuth = ({ children, ...props }) => {
+  async function signInAuthWithGoogle() {
+    try {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      const res = await firebase.auth().signInWithPopup(provider);
+      if (res.user) localStorage.setItem("logged-in-user", true);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

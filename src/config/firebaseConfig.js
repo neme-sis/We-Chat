@@ -15,8 +15,9 @@ const firebaseConfigOptions = {
 
 firebase.initializeApp(firebaseConfigOptions);
 
+export const auth = firebase.auth();
+
 export const useFirebaseSignUp = () => {
-  const auth = firebase.auth();
   const [user] = useAuthState(auth);
 
   return user;

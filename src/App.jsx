@@ -1,19 +1,21 @@
 import React from "react";
 import "./styles/App.scss";
 import Chat from "./components/Chat";
-
-import firebase from "firebase/compat/app"; //sdk import
 import "firebase/compat/firestore"; //for the database
 import "firebase/compat/auth"; //for user authentication
-import { useFirebaseSignUp } from "./config/firebaseConfig";
+
 import UserAuth from "./pages/UserAuth";
 import { Route, Routes, Navigate } from "react-router-dom";
 import SignInModal from "./components/SignInModal";
 import SignUpModal from "./components/SignUpModal";
+import { useFirebaseSignUp } from "./config/firebaseConfig";
 
 function App() {
   const user = useFirebaseSignUp();
   let routes = "";
+
+  if (!user && localStorage.getItem("logged-in-user"))
+    return <div className="App">Loading...</div>;
 
   if (user) {
     routes = (

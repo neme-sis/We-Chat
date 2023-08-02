@@ -7,6 +7,7 @@ import "firebase/compat/auth"; //for user authentication
 const SignOut = () => {
   function signOutFromApp() {
     firebase.auth().signOut();
+    localStorage.removeItem("logged-in-user");
   }
 
   return (
