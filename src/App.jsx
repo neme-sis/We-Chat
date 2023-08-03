@@ -9,13 +9,31 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import SignInModal from "./components/SignInModal";
 import SignUpModal from "./components/SignUpModal";
 import { useFirebaseSignUp } from "./config/firebaseConfig";
+import PageLoader from "./components/PageLoader";
 
 function App() {
   const user = useFirebaseSignUp();
   let routes = "";
+  const [globalLoaderActive, setGlobalLoaderActive] = React.useState(true);
 
-  if (!user && localStorage.getItem("logged-in-user"))
-    return <div className="App">Loading...</div>;
+  React.useEffect(() => {
+    let timeout = null;
+    if (globalLoaderActive)
+      timeout = setTimeout(() => {
+        setGlobalLoaderActive(false);
+      }, 2000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [globalLoaderActive]);
+
+  if (globalLoaderActive || (!user && localStorage.getItem("logged-in-user")))
+    return (
+      <div className="App">
+        <PageLoader />
+      </div>
+    );
 
   if (user) {
     routes = (
