@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../styles/SignUpModal.scss";
 import { Link } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../config/firebaseConfig";
+import { GlobalContext } from "../App";
 
 const SignUpModal = () => {
   const [userInput, setUserInput] = useState({
@@ -9,10 +12,21 @@ const SignUpModal = () => {
     firstName: "",
     lastName: "",
   });
-  function signInWithEmailManually(e) {
+  const { setIsGloballyLoading } = useContext(GlobalContext);
+  async function signInWithEmailManually(e) {
     e.preventDefault();
-    console.log(userInput.userEmail, userInput.userPassword);
-    //TODO: add firebase auth with email and password and double verification
+    setIsGloballyLoading(true);
+    await createUserWithEmailAndPassword(
+      auth,
+      userInput.userEmail,
+      userInput.userPassword
+    );
+    await updateProfile(auth.currentUser, {
+      displayName: `${userInput.firstName} ${userInput.lastName}`,
+      photoURL:
+        "https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg",
+    });
+    setIsGloballyLoading(false);
   }
   return (
     <>

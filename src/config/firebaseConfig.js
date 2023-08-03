@@ -2,6 +2,7 @@ import firebase from "firebase/compat/app"; //sdk import
 import "firebase/compat/firestore"; //for the database
 import "firebase/compat/auth"; //for user authentication
 import { useAuthState } from "react-firebase-hooks/auth"; //auth hook
+import { getAuth } from "firebase/auth";
 
 const firebaseConfigOptions = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -15,7 +16,7 @@ const firebaseConfigOptions = {
 
 firebase.initializeApp(firebaseConfigOptions);
 
-export const auth = firebase.auth();
+export const auth = getAuth();
 
 export const useFirebaseSignUp = () => {
   const [user] = useAuthState(auth);

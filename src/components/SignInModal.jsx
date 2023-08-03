@@ -1,16 +1,25 @@
 import React, { useState } from "react";
 import "../styles/SignInModal.scss";
 import { Link } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebaseConfig";
+import { GlobalContext } from "../App";
 
 const SignInModal = () => {
   const [userInput, setUserInput] = useState({
     userPassword: "",
     userEmail: "",
   });
-  function signInWithEmailManually(e) {
+  const { setIsGloballyLoading } = React.useContext(GlobalContext);
+  async function signInWithEmailManually(e) {
     e.preventDefault();
-    console.log(userInput.userEmail, userInput.userPassword);
-    //TODO: add firebase auth with email and password and double verification
+    setIsGloballyLoading(true);
+    await signInWithEmailAndPassword(
+      auth,
+      userInput.userEmail,
+      userInput.userPassword
+    );
+    setIsGloballyLoading(false);
   }
   return (
     <>

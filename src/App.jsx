@@ -11,24 +11,31 @@ import SignUpModal from "./components/SignUpModal";
 import { useFirebaseSignUp } from "./config/firebaseConfig";
 import PageLoader from "./components/PageLoader";
 
+export const GlobalContext = React.createContext({});
+
 function App() {
   const user = useFirebaseSignUp();
   let routes = "";
-  const [globalLoaderActive, setGlobalLoaderActive] = React.useState(true);
+  const [initialLoading, setInitialLoading] = React.useState(true);
+  const [isGloballyLoading, setIsGloballyLoading] = React.useState(false);
 
   React.useEffect(() => {
     let timeout = null;
-    if (globalLoaderActive)
+    if (initialLoading)
       timeout = setTimeout(() => {
-        setGlobalLoaderActive(false);
+        setInitialLoading(false);
       }, 2000);
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [globalLoaderActive]);
+  }, [initialLoading]);
 
-  if (globalLoaderActive || (!user && localStorage.getItem("logged-in-user")))
+  if (
+    initialLoading ||
+    isGloballyLoading ||
+    (!user && localStorage.getItem("logged-in-user"))
+  )
     return (
       <div className="App">
         <PageLoader />
@@ -67,7 +74,11 @@ function App() {
     );
   }
 
-  return <div className="App">{routes}</div>;
+  return (
+    <GlobalContext.Provider value={{ setIsGloballyLoading }}>
+      <div className="App">{routes}</div>
+    </GlobalContext.Provider>
+  );
 }
 
 export default App;
