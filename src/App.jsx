@@ -31,17 +31,6 @@ function App() {
     };
   }, [initialLoading]);
 
-  if (
-    initialLoading ||
-    isGloballyLoading ||
-    (!user && localStorage.getItem("logged-in-user"))
-  )
-    return (
-      <div className="App">
-        <PageLoader />
-      </div>
-    );
-
   if (user) {
     routes = (
       <Routes>
@@ -76,7 +65,12 @@ function App() {
 
   return (
     <GlobalContext.Provider value={{ setIsGloballyLoading }}>
-      <div className="App">{routes}</div>
+      <div className="App">
+        {(initialLoading ||
+          isGloballyLoading ||
+          (!user && localStorage.getItem("logged-in-user"))) && <PageLoader />}
+        {routes}
+      </div>
     </GlobalContext.Provider>
   );
 }

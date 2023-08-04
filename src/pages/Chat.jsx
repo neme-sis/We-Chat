@@ -10,13 +10,8 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import SignOut from "../components/SignOut";
 import ChatMessage from "../components/ChatMessage";
-
-const invalid = (e) => {
-  e.target.setCustomValidity("Please Enter a Message To Send");
-};
-const notInvalid = (e) => {
-  e.target.setCustomValidity("");
-};
+import SendMessageBox from "../components/SendMessageBox";
+import { GlobalContext } from "../App";
 
 const Chat = () => {
   /* The code is setting up a connection to the Firestore database and retrieving a collection of
@@ -25,39 +20,16 @@ const Chat = () => {
   const query = messageCollection.orderBy("createdAt");
   const end = useRef();
   const [messages] = useCollectionData(query, { idField: "id" });
+  console.log(messages);
 
   const goLast = () => end.current.scrollIntoView({ behaviour: "smooth" });
-
-  const [inputValue, setInputValue] = React.useState("");
-  const [isMessageUploading, setIsMessageUploading] = React.useState(false);
-
-  /**
-   * The `send` function sends a message to a message collection in Firebase Firestore, including the
-   * text, timestamp, and user information.
-   * @returns The function `send` is not returning anything explicitly.
-   */
-  const send = async (e) => {
-    e.preventDefault();
-    const { uid, photoURL, displayName } = firebase.auth().currentUser;
-    const msg = inputValue.trim();
-
-    if (!msg) return;
-    setIsMessageUploading(true);
-    await messageCollection.add({
-      text: msg,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uid,
-      photoURL,
-      displayName,
-    });
-    setInputValue("");
-    goLast();
-    setIsMessageUploading(false);
-  };
+  const { setIsGloballyLoading } = React.useContext(GlobalContext);
 
   /* The `useEffect` hook is used to perform side effects in a React component. In this case, it is
   used to scroll to the last message in the chat whenever the `messages` array changes. */
   useEffect(() => {
+    if (!messages) setIsGloballyLoading(true);
+    else setIsGloballyLoading(false);
     goLast();
   }, [messages]);
 
@@ -90,24 +62,7 @@ const Chat = () => {
           })}
       </div>
       <span ref={end}></span>
-      <form onSubmit={send} className="form">
-        <input
-          type="text"
-          placeholder="Send Text..."
-          required
-          onInvalid={invalid}
-          onInput={notInvalid}
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="send-text"
-          disabled={isMessageUploading}
-        >
-          Send
-        </button>
-      </form>
+      <SendMessageBox />
     </div>
   );
 };
