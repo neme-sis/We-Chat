@@ -6,20 +6,6 @@
   margin: 0;
   padding: 0;
 }
-body {
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: $userTextBg;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: $nonUserTextBg;
-  }
-}
 .App {
   min-height: 100vh;
   background: $backgroundDark;

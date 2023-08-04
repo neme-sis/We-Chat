@@ -85,8 +85,8 @@ const Chat = () => {
               />
             );
           })}
+        <span ref={end}></span>
       </div>
-      <span ref={end}></span>
       <SendMessageBox goLast={goLast} messageCollection={messageCollection} />
     </Fragment>
   );

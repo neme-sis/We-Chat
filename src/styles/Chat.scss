@@ -1,14 +1,29 @@
 @import "../var.scss";
-.chat-all{
-    >.disclaimer-text{
-        background-color: $nonUserTextBg;
-        color: $userText;
-        width: min(70%, 800px);
-        margin: 2rem auto;
-        padding: 1rem 2rem;
-        border-radius: 20px;
-        font-style: italic;
-    }
+.chat-all {
+  max-height: calc(100vh - 83.2px - 4rem);
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $userTextBg;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $nonUserTextBg;
+  }
+
+  > .disclaimer-text {
+    background-color: $nonUserTextBg;
+    color: $userText;
+    width: min(70%, 800px);
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    font-style: italic;
+  }
 }
 .drop-arrow {
   position: fixed;
@@ -38,10 +53,10 @@
 }
 
 @keyframes godown {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(10px);
-    }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+  }
 }
