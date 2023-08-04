@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles/App.scss";
-import Chat from "./components/Chat";
+import Chat from "./pages/Chat";
 import "firebase/compat/firestore"; //for the database
 import "firebase/compat/auth"; //for user authentication
 
