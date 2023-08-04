@@ -1,4 +1,23 @@
 @import "../var.scss";
+.date-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+  width: 70%;
+  > .line {
+    flex: 1;
+    height: 1px;
+    background-color: #fff;
+    opacity: 0.2;
+    margin: 0 1rem;
+  }
+  > .date{
+    font-size: 12px;
+    opacity: 0.5;
+    text-transform: uppercase;
+  }
+}
 .chat {
   display: flex;
   flex-direction: column;

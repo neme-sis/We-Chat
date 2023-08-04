@@ -16,6 +16,16 @@ import { AiOutlineArrowDown } from "react-icons/ai";
 
 import "../styles/Chat.scss";
 
+function isSameDate(date1, date2) {
+  return (
+    date1 &&
+    date2 &&
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+}
+
 const Chat = () => {
   /* The code is setting up a connection to the Firestore database and retrieving a collection of
   messages. */
@@ -37,7 +47,8 @@ const Chat = () => {
     goLast();
   }, [messages]);
 
-  let prevUID = "";
+  let prevUID = "",
+    prevDate = "";
 
   return (
     <div>
@@ -59,6 +70,11 @@ const Chat = () => {
             const uuid = v4();
             const isSameUser = prevUID === message.uid;
             prevUID = message.uid;
+
+            const timeStamp = new Date(message.createdAt.seconds * 1000);
+            const isSameDay = isSameDate(prevDate, timeStamp);
+            prevDate = timeStamp;
+
             return (
               <ChatMessage
                 key={uuid}
@@ -66,6 +82,7 @@ const Chat = () => {
                 showDetail={!isSameUser}
                 isLastMessage={i === messages.length - 1}
                 dropArrow={dropArrow.current}
+                isSameDay={isSameDay}
               />
             );
           })}
