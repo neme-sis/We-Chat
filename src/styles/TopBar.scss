@@ -1,0 +1,33 @@
+@import "../var.scss";
+.top-bar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: #19142b;
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  z-index: 90;
+  box-shadow: 0px 0px 6px rgb(14, 5, 35);
+  > .top-bar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    > .top-bar-profile-pic {
+      border-radius: 40%;
+      margin-right: 1.5rem;
+    }
+    > .top-bar-sign-out {
+      > button {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

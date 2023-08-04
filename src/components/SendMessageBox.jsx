@@ -13,6 +13,7 @@ const notInvalid = (e) => {
 const SendMessageBox = ({ goLast, messageCollection }) => {
   const [inputValue, setInputValue] = React.useState("");
   const [isMessageUploading, setIsMessageUploading] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
   const sendBox = React.useRef();
 
   /**
@@ -69,8 +70,18 @@ const SendMessageBox = ({ goLast, messageCollection }) => {
         ref={sendBox}
         rows={1}
       />
-      <button type="submit" className="send-text" disabled={isMessageUploading}>
-        <IoSend color="#4d38a2" size={25} />
+      <button
+        type="submit"
+        className="send-text"
+        disabled={isMessageUploading}
+        onMouseOver={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <IoSend
+          color="#4d38a2"
+          size={25}
+          style={{ opacity: isHovered ? 0.7 : 1 }}
+        />
       </button>
     </form>
   );
