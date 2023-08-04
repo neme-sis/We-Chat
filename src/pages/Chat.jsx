@@ -20,7 +20,6 @@ const Chat = () => {
   const query = messageCollection.orderBy("createdAt");
   const end = useRef();
   const [messages] = useCollectionData(query, { idField: "id" });
-  console.log(messages);
 
   const goLast = () => end.current.scrollIntoView({ behaviour: "smooth" });
   const { setIsGloballyLoading } = React.useContext(GlobalContext);
@@ -62,7 +61,7 @@ const Chat = () => {
           })}
       </div>
       <span ref={end}></span>
-      <SendMessageBox />
+      <SendMessageBox goLast={goLast} messageCollection={messageCollection} />
     </div>
   );
 };

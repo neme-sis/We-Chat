@@ -1,0 +1,39 @@
+@import "../var.scss";
+.send-message-wrapper {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background: #19142b;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+
+  > textarea {
+    resize: none;
+    width: min(70%, 900px);
+    background-color: transparent;
+    border: 1px solid $nonUserText;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    color: #ffffff;
+    font-size: 1.2rem;
+    &::placeholder {
+      font-size: 1.1rem;
+      color: $nonUserText;
+    }
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  > button {
+    background-color: transparent;
+    border: none;
+    margin-left: 1.5rem;
+    cursor: pointer;
+    height: 43.2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
