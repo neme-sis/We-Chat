@@ -11,12 +11,12 @@
 .user-details {
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   margin-left: 0.25rem;
 
-  > img {
-    width: 25px;
-    height: 25px;
+  > .user-img-avatar {
+    width: 30px;
+    height: 30px;
     border-radius: 40%;
   }
   > p {

@@ -1,6 +1,7 @@
 import React from "react";
 import { auth } from "../config/firebaseConfig";
 import "../styles/ChatMessage.scss";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ChatMessage = ({ message, showDetail, isLastMessage, dropArrow }) => {
   const { text, uid, photoURL, displayName } = message;
@@ -45,7 +46,7 @@ const ChatMessage = ({ message, showDetail, isLastMessage, dropArrow }) => {
     >
       {showDetail && (
         <div className={`user-details user-details-${textClass}`}>
-          <img src={photoURL} alt="" />
+          <LazyLoadImage src={photoURL} className="user-img-avatar" />
           <p className={`user-name ${textClass}-user-name`}>
             ~{textClass === "sent" ? "You" : displayName}
           </p>
