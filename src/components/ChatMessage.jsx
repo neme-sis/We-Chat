@@ -9,6 +9,8 @@ const ChatMessage = ({
   isLastMessage,
   dropArrow,
   isSameDay,
+  allMessageContainer,
+  lastMessageRef,
 }) => {
   const { text, uid, photoURL, displayName, createdAt } = message;
   let timeStamp = new Date(createdAt.seconds * 1000);
@@ -17,13 +19,12 @@ const ChatMessage = ({
   if (hour < 10) hour = "0" + hour;
   if (minute < 10) minute = "0" + minute;
   const textClass = auth.currentUser.uid === uid ? "sent" : "recieved";
-  const lastMessageRef = React.useRef();
 
   function createObserver() {
     let options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 1.0,
+      root: allMessageContainer,
+      rootMargin: "200px 0px 0px 0px",
+      threshold: 0.1,
     };
 
     let observer = new IntersectionObserver(handleIntersect, options);
@@ -45,8 +46,6 @@ const ChatMessage = ({
 
   const isShowUserDetail = !isSameDay || showDetail;
 
-  if (uid === "spcltxt") return <></>; //testing
-
   return (
     <Fragment>
       {!isSameDay && (
@@ -61,9 +60,6 @@ const ChatMessage = ({
           isLastMessage ? "last-message" : ""
         }`}
         style={{ marginTop: isShowUserDetail ? "1.5rem" : "0.5rem" }}
-        ref={(el) => {
-          if (isLastMessage) lastMessageRef.current = el;
-        }}
       >
         {isShowUserDetail && (
           <div className={`user-details user-details-${textClass}`}>

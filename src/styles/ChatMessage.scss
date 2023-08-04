@@ -23,9 +23,6 @@
   flex-direction: column;
   padding: 0 3rem;
   align-items: start;
-  &:last-child {
-    margin-bottom: 1rem;
-  }
 }
 .chat-sent {
   align-items: end;

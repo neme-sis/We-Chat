@@ -39,7 +39,7 @@ const Chat = () => {
   const { setIsGloballyLoading } = React.useContext(GlobalContext);
 
   const dropArrow = React.useRef(null);
-
+  const allMessageContainer = React.useRef(null);
   /* The `useEffect` hook is used to perform side effects in a React component. In this case, it is
   used to scroll to the last message in the chat whenever the `messages` array changes. */
   useEffect(() => {
@@ -54,7 +54,7 @@ const Chat = () => {
   return (
     <Fragment>
       <TopBar />
-      <div className="chat-all">
+      <div className="chat-all" ref={allMessageContainer}>
         <div className="drop-arrow" ref={dropArrow} onClick={goLast}>
           <AiOutlineArrowDown className="drop-arrow-icon" size={25} />
         </div>
@@ -82,6 +82,8 @@ const Chat = () => {
                 isLastMessage={i === messages.length - 1}
                 dropArrow={dropArrow.current}
                 isSameDay={isSameDay}
+                allMessageContainer={allMessageContainer.current}
+                lastMessageRef={end}
               />
             );
           })}
