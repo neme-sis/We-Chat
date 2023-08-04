@@ -4,7 +4,12 @@ import "../styles/ChatMessage.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ChatMessage = ({ message, showDetail, isLastMessage, dropArrow }) => {
-  const { text, uid, photoURL, displayName } = message;
+  const { text, uid, photoURL, displayName, createdAt } = message;
+  let timeStamp = new Date(createdAt.seconds * 1000);
+  let hour = timeStamp.getHours(),
+    minute = timeStamp.getMinutes();
+  if (hour < 10) hour = "0" + hour;
+  if (minute < 10) minute = "0" + minute;
   const textClass = auth.currentUser.uid === uid ? "sent" : "recieved";
   const lastMessageRef = React.useRef();
 
@@ -52,7 +57,12 @@ const ChatMessage = ({ message, showDetail, isLastMessage, dropArrow }) => {
           </p>
         </div>
       )}
-      <p className={`user-message user-message-${textClass}`}>{text}</p>
+      <p className={`user-message user-message-${textClass}`}>
+        {text}
+        <div className="timestamp">
+          {hour}:{minute}
+        </div>
+      </p>
     </div>
   );
 };
