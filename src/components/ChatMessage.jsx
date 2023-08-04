@@ -73,12 +73,12 @@ const ChatMessage = ({
             </p>
           </div>
         )}
-        <p className={`user-message user-message-${textClass}`}>
+        <div className={`user-message user-message-${textClass}`}>
           {text}
           <div className="timestamp">
             {hour}:{minute}
           </div>
-        </p>
+        </div>
       </div>
     </Fragment>
   );

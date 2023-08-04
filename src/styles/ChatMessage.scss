@@ -64,6 +64,7 @@
   padding-right: 3rem;
   padding-bottom: 2rem;
   position: relative;
+  text-rendering: geometricPrecision;
   > .timestamp {
     position: absolute;
     font-size: 12px;

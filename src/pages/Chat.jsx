@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { v4 } from "uuid";
 
@@ -15,6 +15,7 @@ import { GlobalContext } from "../App";
 import { AiOutlineArrowDown } from "react-icons/ai";
 
 import "../styles/Chat.scss";
+import TopBar from "../components/TopBar";
 
 function isSameDate(date1, date2) {
   return (
@@ -51,19 +52,17 @@ const Chat = () => {
     prevDate = "";
 
   return (
-    <div>
-      <header className="App-header">
-        <h2>
-          We Chat
-          <img src={firebase.auth().currentUser.photoURL} alt="" />
-          <span>
-            <SignOut />
-          </span>
-        </h2>
-      </header>
+    <Fragment>
+      <TopBar />
       <div className="chat-all">
         <div className="drop-arrow" ref={dropArrow} onClick={goLast}>
           <AiOutlineArrowDown className="drop-arrow-icon" size={25} />
+        </div>
+        <div className="disclaimer-text">
+          Disclaimer: "Please note that all messages sent through this chat
+          application are confidential and intended solely for the recipient. If
+          you have received this message in error, kindly notify the sender and
+          delete it immediately. Thank you."
         </div>
         {messages &&
           messages.map((message, i) => {
@@ -89,7 +88,7 @@ const Chat = () => {
       </div>
       <span ref={end}></span>
       <SendMessageBox goLast={goLast} messageCollection={messageCollection} />
-    </div>
+    </Fragment>
   );
 };
 
