@@ -4,7 +4,7 @@
   margin-bottom: 2rem;
 
   position: relative;
-  &::after{
+  &::after {
     content: "";
     position: relative;
   }
@@ -28,9 +28,9 @@
       left: 5%;
       top: 0;
       transform: translateY(-50%);
-      background: #141725;;
+      background: #141725;
       transition: 300ms;
-      font-size: 14px;
+      font-size: 15px;
     }
     > .user-detail {
       width: 100%;
@@ -45,23 +45,18 @@
         font-size: 14px;
       }
     }
-    > .user-detail:focus + .input-label {
-      top: -0.25rem;
-      transform: translateY(-100%);
-      left: 0;
-      font-size: 15px;
-    }
+    > .user-detail:focus + .input-label,
     > .user-detail:not(:placeholder-shown) + .input-label {
       top: -0.25rem;
       transform: translateY(-100%);
       left: 0;
-      font-size: 15px;
+      font-size: 14px;
     }
   }
   > .sign-in-manual-button {
     width: min(80%, 250px);
     height: 40px;
-    background: #141725;;
+    background: #141725;
     border: 1px solid white;
     border-radius: 10px;
     font-size: 18px;
@@ -75,14 +70,14 @@
       border-color: #141725;
     }
   }
-  > .sign-up-redirector{
+  > .sign-up-redirector {
     font-size: 14px;
     margin-top: 1rem;
-    > a{
+    > a {
       color: cyan;
       text-decoration: none;
       cursor: pointer;
-      &:hover{
+      &:hover {
         text-decoration: underline;
       }
     }
