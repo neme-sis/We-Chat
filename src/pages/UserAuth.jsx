@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import firebase from "firebase/compat/app"; //sdk import
 import "firebase/compat/firestore"; //for the database
@@ -6,8 +6,11 @@ import "firebase/compat/auth"; //for user authentication
 
 import { FcGoogle } from "react-icons/fc";
 import "../styles/UserAuth.scss";
+import { GlobalContext } from "../App";
+import { DANGER } from "../Types/AlertTypes";
 
 const UserAuth = ({ children, ...props }) => {
+  const { setAlertData } = useContext(GlobalContext);
   async function signInAuthWithGoogle() {
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -15,6 +18,12 @@ const UserAuth = ({ children, ...props }) => {
       if (res.user) localStorage.setItem("logged-in-user", true);
     } catch (err) {
       console.log(err);
+      setAlertData({
+        type: DANGER,
+        description: "Check your internet connection or Please try again later",
+        title: "Error signing in with Google",
+        isShowing: true,
+      });
     }
   }
 
