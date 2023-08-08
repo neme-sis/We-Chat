@@ -2,7 +2,6 @@
   position: fixed;
   left: 50%;
   width: min(90%, 800px);
-  min-height: 50px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -10,6 +9,7 @@
   border-radius: 20px;
   border-width: 2px;
   border-style: solid;
+  z-index: 999;
 
   background-color: #fff;
   > p {
