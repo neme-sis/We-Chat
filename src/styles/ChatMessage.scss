@@ -71,6 +71,17 @@
     bottom: 0.5rem;
     right: 1rem;
   }
+  >.read-more{
+    font-size: 14px;
+    color: rgb(137, 166, 255);
+    opacity: 0.7;
+    text-align: right;
+    cursor: pointer;
+    &:hover{
+      opacity: 1;
+      text-decoration: underline;
+    }
+  }
 }
 .user-message-sent {
   background-color: $userTextBg;

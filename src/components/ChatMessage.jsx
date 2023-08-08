@@ -13,6 +13,8 @@ const ChatMessage = ({
   lastMessageRef,
 }) => {
   const { text, uid, photoURL, displayName, createdAt } = message;
+  const textLimit = 400;
+  const [textLengthLimit, setTextLengthLimit] = React.useState(textLimit);
   let timeStamp = new Date(createdAt.seconds * 1000);
   let hour = timeStamp.getHours(),
     minute = timeStamp.getMinutes();
@@ -70,7 +72,17 @@ const ChatMessage = ({
           </div>
         )}
         <div className={`user-message user-message-${textClass}`}>
-          {text}
+          {text.length < textLengthLimit
+            ? text
+            : text.slice(0, textLengthLimit)}
+          {text.length > textLengthLimit && (
+            <span
+              className="read-more"
+              onClick={() => setTextLengthLimit((prev) => prev + textLimit)}
+            >
+              ...Read More
+            </span>
+          )}
           <div className="timestamp">
             {hour}:{minute}
           </div>
