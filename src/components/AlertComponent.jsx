@@ -19,12 +19,12 @@ const AlertComponent = ({
         isShowing ? `alert-component-show` : `alert-component-close`
       } ${type ? `alert-component-${type}` : ""}`}
     >
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex"}}>
         <div
           style={{
             display: "flex",
-            alignItems: "center",
             marginRight: "0.5rem",
+            marginTop: "0.2rem",
           }}
         >
           {type === DANGER ? (
@@ -35,9 +35,11 @@ const AlertComponent = ({
             <AiFillWarning size={20} color="#856404" />
           )}
         </div>
-        <h3>{title}</h3>
+        <div>
+          <h3>{title}</h3>
+          <p>{description}</p>
+        </div>
       </div>
-      <p>{description}</p>
       <div className="cross-icon" onClick={onClose}>
         <IoCloseOutline size={25} />
       </div>

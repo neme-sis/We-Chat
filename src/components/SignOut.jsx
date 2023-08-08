@@ -15,11 +15,16 @@ const SignOut = () => {
       localStorage.removeItem("logged-in-user");
     } catch (error) {
       console.log(error);
+      const msg = error.code
+        ?.split("/")[1]
+        .split("-")
+        .map((word) => word[0].toUpperCase() + word.slice(1))
+        .join(" ");
       setAlertData({
         isShowing: true,
         type: DANGER,
         title: "Unable to sign out",
-        description: error.message,
+        description: msg,
       });
     }
   }
