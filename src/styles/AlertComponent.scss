@@ -1,0 +1,73 @@
+.alert-component {
+  position: fixed;
+  left: 50%;
+  width: min(90%, 800px);
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1rem 4rem;
+  border-radius: 20px;
+  border-width: 2px;
+  border-style: solid;
+
+  background-color: #fff;
+  > p {
+    margin-top: 0.5rem;
+  }
+  > .cross-icon {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.alert-component-show {
+  opacity: 1;
+  top: 10px;
+  transform: translateY(0) translateX(-50%);
+  transition: top 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.alert-component-close {
+  top: 0;
+  transform: translateY(-150%) translateX(-50%);
+  transition: top 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.alert-component-DANGER {
+  background-color: #ff9595;
+  border-color: #ff2137;
+  color: #9d2935;
+  > .cross-icon {
+    &:hover {
+      background-color: #ff2137;
+      color: #fff;
+    }
+  }
+}
+.alert-component-WARNING {
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  color: #856404;
+  > .cross-icon {
+    &:hover {
+      background-color: #ffeeba;
+      color: #856404;
+    }
+  }
+}
+.alert-component-SUCCESS {
+  background-color: #d4edda;
+  border-color: #00b52a;
+  color: #155724;
+  > .cross-icon {
+    &:hover {
+      background-color: #c3e6cb;
+      color: #155724;
+    }
+  }
+}

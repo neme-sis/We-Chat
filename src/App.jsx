@@ -10,6 +10,8 @@ import SignInModal from "./components/SignInModal";
 import SignUpModal from "./components/SignUpModal";
 import { useFirebaseSignUp } from "./config/firebaseConfig";
 import PageLoader from "./components/PageLoader";
+import AlertComponent from "./components/AlertComponent";
+import { DANGER, SUCCESS, WARNING } from "./Types/AlertTypes";
 
 export const GlobalContext = React.createContext({});
 
@@ -18,6 +20,12 @@ function App() {
   let routes = "";
   const [initialLoading, setInitialLoading] = React.useState(true);
   const [isGloballyLoading, setIsGloballyLoading] = React.useState(false);
+  const [alertData, setAlertData] = React.useState({
+    isShowing: false,
+    // title: "",
+    // description: "",
+    type: "",
+  });
 
   React.useEffect(() => {
     let timeout = null;
@@ -30,6 +38,25 @@ function App() {
       clearTimeout(timeout);
     };
   }, [initialLoading]);
+
+  let alertClosingTimeout = null;
+
+  React.useEffect(() => {
+    if (alertData.isShowing) {
+      alertClosingTimeout = setTimeout(() => {
+        setAlertData((prev) => ({ ...prev, isShowing: false }));
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(alertClosingTimeout);
+    };
+  }, [alertData.isShowing]);
+
+  const closeAlert = () => {
+    setAlertData((prev) => ({ ...prev, isShowing: false }));
+    clearTimeout(alertClosingTimeout);
+  };
 
   if (user) {
     routes = (
@@ -64,8 +91,9 @@ function App() {
   }
 
   return (
-    <GlobalContext.Provider value={{ setIsGloballyLoading }}>
+    <GlobalContext.Provider value={{ setIsGloballyLoading, setAlertData }}>
       <div className="App">
+        <AlertComponent {...alertData} onClose={closeAlert} />
         {(initialLoading ||
           isGloballyLoading ||
           (!user && localStorage.getItem("logged-in-user"))) && <PageLoader />}
