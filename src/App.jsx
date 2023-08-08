@@ -11,6 +11,13 @@ import SignUpModal from "./components/SignUpModal";
 import { useFirebaseSignUp } from "./config/firebaseConfig";
 import PageLoader from "./components/PageLoader";
 import AlertComponent from "./components/AlertComponent";
+import { initialState, reducer } from "./reducer/reducer";
+import {
+  HIDE_ALERT,
+  HIDE_GLOBAL_LOADING,
+  SHOW_ALERT,
+  SHOW_GLOBAL_LOADING,
+} from "./Types/ActionTypes";
 
 export const GlobalContext = React.createContext({});
 
@@ -18,13 +25,7 @@ function App() {
   const user = useFirebaseSignUp();
   let routes = "";
   const [initialLoading, setInitialLoading] = React.useState(true);
-  const [isGloballyLoading, setIsGloballyLoading] = React.useState(false);
-  const [alertData, setAlertData] = React.useState({
-    isShowing: false,
-    // title: "",
-    // description: "",
-    type: "",
-  });
+  const [store, dispatch] = React.useReducer(reducer, initialState);
 
   React.useEffect(() => {
     let timeout = null;
@@ -41,20 +42,29 @@ function App() {
   let alertClosingTimeout = null;
 
   React.useEffect(() => {
-    if (alertData.isShowing) {
+    if (store.alertComponent.isShowing) {
       alertClosingTimeout = setTimeout(() => {
-        setAlertData((prev) => ({ ...prev, isShowing: false }));
+        dispatch({ type: HIDE_ALERT });
       }, 3000);
     }
 
     return () => {
       clearTimeout(alertClosingTimeout);
     };
-  }, [alertData.isShowing]);
+  }, [store.alertComponent.isShowing]);
 
   const closeAlert = () => {
-    setAlertData((prev) => ({ ...prev, isShowing: false }));
+    dispatch({ type: HIDE_ALERT });
     clearTimeout(alertClosingTimeout);
+  };
+
+  const setIsGloballyLoading = (isLoading) => {
+    if (isLoading) dispatch({ type: SHOW_GLOBAL_LOADING });
+    else dispatch({ type: HIDE_GLOBAL_LOADING });
+  };
+
+  const setAlertData = (alertData) => {
+    dispatch({ type: SHOW_ALERT, payload: alertData });
   };
 
   if (user) {
@@ -92,9 +102,9 @@ function App() {
   return (
     <GlobalContext.Provider value={{ setIsGloballyLoading, setAlertData }}>
       <div className="App">
-        <AlertComponent {...alertData} onClose={closeAlert} />
+        <AlertComponent {...store.alertComponent} onClose={closeAlert} />
         {(initialLoading ||
-          isGloballyLoading ||
+          store.isGloballyLoading ||
           (!user && localStorage.getItem("logged-in-user"))) && <PageLoader />}
         {routes}
       </div>
