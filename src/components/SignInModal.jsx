@@ -10,15 +10,34 @@ const SignInModal = () => {
     userPassword: "",
     userEmail: "",
   });
-  const { setIsGloballyLoading } = React.useContext(GlobalContext);
+  const { setIsGloballyLoading, setAlertData } =
+    React.useContext(GlobalContext);
+
   async function signInWithEmailManually(e) {
     e.preventDefault();
     setIsGloballyLoading(true);
-    await signInWithEmailAndPassword(
-      auth,
-      userInput.userEmail,
-      userInput.userPassword
-    );
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        userInput.userEmail,
+        userInput.userPassword
+      );
+      setIsGloballyLoading(false);
+      setAlertData({
+        isShowing: true,
+        type: "SUCCESS",
+        title: "Successfully signed in",
+        description: `Welcome ${auth.currentUser.displayName}`,
+      });
+    } catch (error) {
+      console.log(error);
+      setAlertData({
+        isShowing: true,
+        type: "DANGER",
+        title: "Unable to sign in",
+        description: error.message,
+      });
+    }
     setIsGloballyLoading(false);
   }
   return (

@@ -7,15 +7,6 @@ import SignOut from "./SignOut";
 
 const TopBar = () => {
   return (
-    // <header className="App-header">
-    //   <h2>
-    //     We Chat
-    //     <img src={auth.currentUser.photoURL} alt="" />
-    //     <span>
-    //       <SignOut />
-    //     </span>
-    //   </h2>
-    // </header>
     <div className="top-bar">
       <LazyLoadImage src={inlineLogo} height={35} className="top-bar-logo" />
       <div className="top-bar-right">

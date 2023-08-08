@@ -12,20 +12,37 @@ const SignUpModal = () => {
     firstName: "",
     lastName: "",
   });
-  const { setIsGloballyLoading } = useContext(GlobalContext);
+  const { setIsGloballyLoading, setAlertData } = useContext(GlobalContext);
   async function signInWithEmailManually(e) {
     e.preventDefault();
     setIsGloballyLoading(true);
-    await createUserWithEmailAndPassword(
-      auth,
-      userInput.userEmail,
-      userInput.userPassword
-    );
-    await updateProfile(auth.currentUser, {
-      displayName: `${userInput.firstName} ${userInput.lastName}`,
-      photoURL:
-        "https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg",
-    });
+    try {
+      await createUserWithEmailAndPassword(
+        auth,
+        userInput.userEmail,
+        userInput.userPassword
+      );
+      await updateProfile(auth.currentUser, {
+        displayName: `${userInput.firstName} ${userInput.lastName}`,
+        photoURL:
+          "https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg",
+      });
+      setIsGloballyLoading(false);
+      setAlertData({
+        isShowing: true,
+        type: "SUCCESS",
+        title: "Successfully signed up",
+        description: `Welcome ${userInput.firstName} ${userInput.lastName}`,
+      });
+    } catch (err) {
+      console.log(err);
+      setAlertData({
+        isShowing: true,
+        type: "DANGER",
+        title: "Unable to sign up",
+        description: err.message,
+      });
+    }
     setIsGloballyLoading(false);
   }
   return (
