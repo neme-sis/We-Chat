@@ -69,7 +69,8 @@ const Chat = () => {
             const uuid = v4();
             const isSameUser = prevUID === message.uid;
             prevUID = message.uid;
-
+            if (!message.createdAt)
+              message.createdAt = { seconds: new Date().getTime() / 1000 };
             const timeStamp = new Date(message.createdAt.seconds * 1000);
             const isSameDay = isSameDate(prevDate, timeStamp);
             prevDate = timeStamp;
