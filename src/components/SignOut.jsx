@@ -5,6 +5,7 @@ import "firebase/compat/auth"; //for user authentication
 import { FiLogOut } from "react-icons/fi";
 import { GlobalContext } from "../App";
 import { auth } from "../config/firebaseConfig";
+import { DANGER } from "../Types/AlertTypes";
 
 const SignOut = () => {
   const { setAlertData } = React.useContext(GlobalContext);
@@ -16,7 +17,7 @@ const SignOut = () => {
       console.log(error);
       setAlertData({
         isShowing: true,
-        type: "DANGER",
+        type: DANGER,
         title: "Unable to sign out",
         description: error.message,
       });

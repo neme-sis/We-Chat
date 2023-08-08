@@ -3,13 +3,7 @@ import "../styles/SendMessageBox.scss";
 import firebase from "firebase/compat/app"; //sdk import
 import { IoSend } from "react-icons/io5";
 import { GlobalContext } from "../App";
-
-const invalid = (e) => {
-  e.target.setCustomValidity("Please Enter a Message To Send");
-};
-const notInvalid = (e) => {
-  e.target.setCustomValidity("");
-};
+import { DANGER } from "../Types/AlertTypes";
 
 const SendMessageBox = ({ goLast, messageCollection }) => {
   const [inputValue, setInputValue] = React.useState("");
@@ -25,10 +19,10 @@ const SendMessageBox = ({ goLast, messageCollection }) => {
    */
   const send = async (e) => {
     e.preventDefault();
-    const { uid, photoURL, displayName } = firebase.auth().currentUser;
     const msg = inputValue.trim();
-
     if (!msg) return;
+
+    const { uid, photoURL, displayName } = firebase.auth().currentUser;
     setInputValue("");
     sendBox.current.style.height = "auto";
     setIsMessageUploading(true);
@@ -44,7 +38,7 @@ const SendMessageBox = ({ goLast, messageCollection }) => {
       console.log(err);
       setAlertData({
         isShowing: true,
-        type: "DANGER",
+        type: DANGER,
         title: "Unable to send message",
         description: "Please try again later.",
       });
@@ -74,9 +68,6 @@ const SendMessageBox = ({ goLast, messageCollection }) => {
       <textarea
         type="text"
         placeholder="Write a message..."
-        required
-        onInvalid={invalid}
-        onInput={notInvalid}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         ref={sendBox}

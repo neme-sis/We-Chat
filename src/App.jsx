@@ -11,7 +11,6 @@ import SignUpModal from "./components/SignUpModal";
 import { useFirebaseSignUp } from "./config/firebaseConfig";
 import PageLoader from "./components/PageLoader";
 import AlertComponent from "./components/AlertComponent";
-import { DANGER, SUCCESS, WARNING } from "./Types/AlertTypes";
 
 export const GlobalContext = React.createContext({});
 

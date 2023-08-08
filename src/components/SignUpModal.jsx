@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
 import { GlobalContext } from "../App";
+import { DANGER, SUCCESS, WARNING } from "../Types/AlertTypes";
 
 const SignUpModal = () => {
   const [userInput, setUserInput] = useState({
@@ -13,8 +14,37 @@ const SignUpModal = () => {
     lastName: "",
   });
   const { setIsGloballyLoading, setAlertData } = useContext(GlobalContext);
+  function validateInput() {
+    if (!userInput.firstName || !userInput.lastName) {
+      return setAlertData({
+        isShowing: true,
+        type: WARNING,
+        title: "Valid credentials required",
+        description: "Please enter your first and last name",
+      });
+    }
+    if (!userInput.userEmail || !userInput.userPassword) {
+      return setAlertData({
+        isShowing: true,
+        type: WARNING,
+        title: "Valid credentials required",
+        description: "Please enter your email and password",
+      });
+    }
+    if (userInput.userPassword.length < 6) {
+      return setAlertData({
+        isShowing: true,
+        type: WARNING,
+        title: "Weak Password",
+        description: "Password must be at least 6 characters long",
+      });
+    }
+    return true;
+  }
+
   async function signInWithEmailManually(e) {
     e.preventDefault();
+    if (!validateInput()) return;
     setIsGloballyLoading(true);
     try {
       await createUserWithEmailAndPassword(
@@ -30,7 +60,7 @@ const SignUpModal = () => {
       setIsGloballyLoading(false);
       setAlertData({
         isShowing: true,
-        type: "SUCCESS",
+        type: SUCCESS,
         title: "Successfully signed up",
         description: `Welcome ${userInput.firstName} ${userInput.lastName}`,
       });
@@ -38,7 +68,7 @@ const SignUpModal = () => {
       console.log(err);
       setAlertData({
         isShowing: true,
-        type: "DANGER",
+        type: DANGER,
         title: "Unable to sign up",
         description: err.message,
       });

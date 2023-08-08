@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
 import { GlobalContext } from "../App";
+import { DANGER, SUCCESS, WARNING } from "../Types/AlertTypes";
 
 const SignInModal = () => {
   const [userInput, setUserInput] = useState({
@@ -15,6 +16,14 @@ const SignInModal = () => {
 
   async function signInWithEmailManually(e) {
     e.preventDefault();
+    if (!userInput.userEmail || !userInput.userPassword) {
+      return setAlertData({
+        isShowing: true,
+        type: WARNING,
+        title: "Valid credentials required",
+        description: "Please enter your email and password",
+      });
+    }
     setIsGloballyLoading(true);
     try {
       await signInWithEmailAndPassword(
@@ -25,7 +34,7 @@ const SignInModal = () => {
       setIsGloballyLoading(false);
       setAlertData({
         isShowing: true,
-        type: "SUCCESS",
+        type: SUCCESS,
         title: "Successfully signed in",
         description: `Welcome ${auth.currentUser.displayName}`,
       });
@@ -33,7 +42,7 @@ const SignInModal = () => {
       console.log(error);
       setAlertData({
         isShowing: true,
-        type: "DANGER",
+        type: DANGER,
         title: "Unable to sign in",
         description: error.message,
       });
