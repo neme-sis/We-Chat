@@ -8,8 +8,8 @@ import { DANGER, SUCCESS } from "../Types/AlertTypes";
 
 const AlertComponent = ({
   isShowing,
-  title = "This is not allowed",
-  description = "This is not allowed because Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+  title = "",
+  description,
   type = "",
   onClose = () => {},
 }) => {
@@ -19,7 +19,7 @@ const AlertComponent = ({
         isShowing ? `alert-component-show` : `alert-component-close`
       } ${type ? `alert-component-${type}` : ""}`}
     >
-      <div style={{ display: "flex"}}>
+      <div style={{ display: "flex" }}>
         <div
           style={{
             display: "flex",
@@ -37,7 +37,7 @@ const AlertComponent = ({
         </div>
         <div>
           <h3>{title}</h3>
-          <p>{description}</p>
+          {description && <p>{description}</p>}
         </div>
       </div>
       <div className="cross-icon" onClick={onClose}>
