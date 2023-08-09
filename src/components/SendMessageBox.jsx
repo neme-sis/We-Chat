@@ -2,15 +2,16 @@ import React from "react";
 import "../styles/SendMessageBox.scss";
 import firebase from "firebase/compat/app"; //sdk import
 import { IoSend } from "react-icons/io5";
-import { GlobalContext } from "../App";
 import { DANGER } from "../Types/AlertTypes";
+import { useDispatch } from "react-redux";
+import { showAlert } from "../reducer/globalNotificationsReducer";
 
 const SendMessageBox = ({ goLast, messageCollection }) => {
   const [inputValue, setInputValue] = React.useState("");
   const [isMessageUploading, setIsMessageUploading] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
   const sendBox = React.useRef();
-  const { setAlertData } = React.useContext(GlobalContext);
+  const dispatch = useDispatch();
 
   /**
    * The `send` function sends a message to a message collection in Firebase Firestore, including the
@@ -36,12 +37,14 @@ const SendMessageBox = ({ goLast, messageCollection }) => {
       });
     } catch (err) {
       console.log(err);
-      setAlertData({
-        isShowing: true,
-        type: DANGER,
-        title: "Unable to send message",
-        description: "Please try again later.",
-      });
+      dispatch(
+        showAlert({
+          isShowing: true,
+          type: DANGER,
+          title: "Unable to send message",
+          description: "Please try again later.",
+        })
+      );
     }
     goLast();
     setIsMessageUploading(false);

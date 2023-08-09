@@ -11,11 +11,15 @@ import { useEffect } from "react";
 import SignOut from "../components/SignOut";
 import ChatMessage from "../components/ChatMessage";
 import SendMessageBox from "../components/SendMessageBox";
-import { GlobalContext } from "../App";
 import { AiOutlineArrowDown } from "react-icons/ai";
 
 import "../styles/Chat.scss";
 import TopBar from "../components/TopBar";
+import { useDispatch } from "react-redux";
+import {
+  hideGlobalLoading,
+  showGlobalLoading,
+} from "../reducer/globalNotificationsReducer";
 
 function isSameDate(date1, date2) {
   return (
@@ -34,17 +38,17 @@ const Chat = () => {
   const query = messageCollection.orderBy("createdAt");
   const end = useRef();
   const [messages] = useCollectionData(query, { idField: "id" });
+  const dispatch = useDispatch();
 
   const goLast = () => end.current.scrollIntoView({ behaviour: "smooth" });
-  const { setIsGloballyLoading } = React.useContext(GlobalContext);
 
   const dropArrow = React.useRef(null);
   const allMessageContainer = React.useRef(null);
   /* The `useEffect` hook is used to perform side effects in a React component. In this case, it is
   used to scroll to the last message in the chat whenever the `messages` array changes. */
   useEffect(() => {
-    if (!messages) setIsGloballyLoading(true);
-    else setIsGloballyLoading(false);
+    if (!messages) dispatch(showGlobalLoading());
+    else dispatch(hideGlobalLoading());
     goLast();
   }, [messages]);
 

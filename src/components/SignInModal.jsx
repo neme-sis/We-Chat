@@ -3,41 +3,47 @@ import "../styles/SignInModal.scss";
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
-import { GlobalContext } from "../App";
 import { DANGER, SUCCESS, WARNING } from "../Types/AlertTypes";
+import { useDispatch } from "react-redux";
+import {
+  hideGlobalLoading,
+  showAlert,
+  showGlobalLoading,
+} from "../reducer/globalNotificationsReducer";
 
 const SignInModal = () => {
   const [userInput, setUserInput] = useState({
     userPassword: "",
     userEmail: "",
   });
-  const { setIsGloballyLoading, setAlertData } =
-    React.useContext(GlobalContext);
+  const dispatch = useDispatch();
 
   async function signInWithEmailManually(e) {
     e.preventDefault();
     if (!userInput.userEmail || !userInput.userPassword) {
-      return setAlertData({
-        isShowing: true,
-        type: WARNING,
-        title: "Valid credentials required",
-        description: "Please enter your email and password",
-      });
+      return dispatch(
+        showAlert({
+          type: WARNING,
+          title: "Valid credentials required",
+          description: "Please enter your email and password",
+        })
+      );
     }
-    setIsGloballyLoading(true);
+    dispatch(showGlobalLoading());
     try {
       await signInWithEmailAndPassword(
         auth,
         userInput.userEmail,
         userInput.userPassword
       );
-      setIsGloballyLoading(false);
-      setAlertData({
-        isShowing: true,
-        type: SUCCESS,
-        title: "Successfully signed in",
-        description: `Welcome ${auth.currentUser.displayName}`,
-      });
+      dispatch(hideGlobalLoading());
+      dispatch(
+        showAlert({
+          type: SUCCESS,
+          title: "Successfully signed in",
+          description: `Welcome ${auth.currentUser.displayName}`,
+        })
+      );
     } catch (error) {
       console.log(error);
       const msg = error.code
@@ -45,14 +51,15 @@ const SignInModal = () => {
         .split("-")
         .map((word) => word[0].toUpperCase() + word.slice(1))
         .join(" ");
-      setAlertData({
-        isShowing: true,
-        type: DANGER,
-        title: "Unable to sign in",
-        description: msg,
-      });
+      dispatch(
+        showAlert({
+          type: DANGER,
+          title: "Unable to sign in",
+          description: msg,
+        })
+      );
     }
-    setIsGloballyLoading(false);
+    dispatch(hideGlobalLoading());
   }
   return (
     <>

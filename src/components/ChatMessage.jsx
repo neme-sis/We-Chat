@@ -7,16 +7,16 @@ import { AiOutlineCopy as CopyIcon } from "react-icons/ai";
 import { RiDeleteBin6Fill as DeleteIcon } from "react-icons/ri";
 import { MdOutlineAddReaction as ReactIcon } from "react-icons/md";
 import useToggle from "../hooks/useToggle";
-import { GlobalContext } from "../App";
 import { SUCCESS } from "../Types/AlertTypes";
+import { useDispatch } from "react-redux";
+import { showAlert } from "../reducer/globalNotificationsReducer";
 
 function copyToClipboard(text, setAlertData) {
   navigator.clipboard.writeText(text);
-  // setAlertData({
-  //   type: SUCCESS,
-  //   title: "Successfully copied to clipboard",
-  //   isShowing: true,
-  // });
+  setAlertData({
+    type: SUCCESS,
+    title: "Successfully copied to clipboard",
+  });
 }
 
 const ChatMessage = ({
@@ -29,6 +29,7 @@ const ChatMessage = ({
   lastMessageRef,
 }) => {
   const { text, uid, photoURL, displayName, createdAt } = message;
+  const dispatch = useDispatch();
   const textLimit = 400;
   const [textLengthLimit, setTextLengthLimit] = React.useState(textLimit);
   let timeStamp = new Date(createdAt.seconds * 1000);
@@ -42,7 +43,6 @@ const ChatMessage = ({
   const [messageOptions, toggleMessageOptions] = useToggle(
     messageOptionsMenuToggler
   );
-  const { setAlertData } = React.useContext(GlobalContext);
 
   function createObserver() {
     let options = {
@@ -73,7 +73,7 @@ const ChatMessage = ({
     {
       name: <p>Copy</p>,
       icon: <CopyIcon size={20} />,
-      onClick: () => copyToClipboard(text, setAlertData),
+      onClick: () => copyToClipboard(text, (data) => dispatch(showAlert(data))),
     },
     {
       name: <p style={{ color: "#d00" }}>Delete</p>,

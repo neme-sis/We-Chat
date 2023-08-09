@@ -5,14 +5,34 @@ import { AiFillWarning } from "react-icons/ai";
 import { MdDangerous } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { DANGER, SUCCESS } from "../Types/AlertTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { hideAlert } from "../reducer/globalNotificationsReducer";
 
-const AlertComponent = ({
-  isShowing,
-  title = "",
-  description,
-  type = "",
-  onClose = () => {},
-}) => {
+const AlertComponent = () => {
+  const { isShowing, type, title, description } = useSelector(
+    (state) => state.globalNotifications.alertComponent
+  );
+  const dispatch = useDispatch();
+
+  let alertClosingTimeout = null;
+
+  React.useEffect(() => {
+    if (isShowing) {
+      alertClosingTimeout = setTimeout(() => {
+        dispatch(hideAlert());
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(alertClosingTimeout);
+    };
+  }, [isShowing]);
+
+  const closeAlert = () => {
+    dispatch(hideAlert());
+    clearTimeout(alertClosingTimeout);
+  };
+
   return (
     <div
       className={`alert-component ${
@@ -40,7 +60,7 @@ const AlertComponent = ({
           {description && <p>{description}</p>}
         </div>
       </div>
-      <div className="cross-icon" onClick={onClose}>
+      <div className="cross-icon" onClick={closeAlert}>
         <IoCloseOutline size={25} />
       </div>
     </div>

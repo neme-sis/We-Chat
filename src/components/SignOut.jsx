@@ -3,12 +3,13 @@ import "firebase/compat/firestore"; //for the database
 import "firebase/compat/auth"; //for user authentication
 
 import { FiLogOut } from "react-icons/fi";
-import { GlobalContext } from "../App";
 import { auth } from "../config/firebaseConfig";
 import { DANGER } from "../Types/AlertTypes";
+import { useDispatch } from "react-redux";
+import { showAlert } from "../reducer/globalNotificationsReducer";
 
 const SignOut = () => {
-  const { setAlertData } = React.useContext(GlobalContext);
+  const dispatch = useDispatch();
   function signOutFromApp() {
     try {
       auth.signOut();
@@ -20,12 +21,14 @@ const SignOut = () => {
         .split("-")
         .map((word) => word[0].toUpperCase() + word.slice(1))
         .join(" ");
-      setAlertData({
-        isShowing: true,
-        type: DANGER,
-        title: "Unable to sign out",
-        description: msg,
-      });
+      dispatch(
+        showAlert({
+          isShowing: true,
+          type: DANGER,
+          title: "Unable to sign out",
+          description: msg,
+        })
+      );
     }
   }
   const [isHovered, setIsHovered] = React.useState(false);

@@ -3,8 +3,13 @@ import "../styles/SignUpModal.scss";
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
-import { GlobalContext } from "../App";
 import { DANGER, SUCCESS, WARNING } from "../Types/AlertTypes";
+import { useDispatch } from "react-redux";
+import {
+  hideGlobalLoading,
+  showAlert,
+  showGlobalLoading,
+} from "../reducer/globalNotificationsReducer";
 
 const SignUpModal = () => {
   const [userInput, setUserInput] = useState({
@@ -13,31 +18,36 @@ const SignUpModal = () => {
     firstName: "",
     lastName: "",
   });
-  const { setIsGloballyLoading, setAlertData } = useContext(GlobalContext);
+  const dispatch = useDispatch();
   function validateInput() {
     if (!userInput.firstName || !userInput.lastName) {
-      return setAlertData({
-        isShowing: true,
-        type: WARNING,
-        title: "Valid credentials required",
-        description: "Please enter your first and last name",
-      });
+      return dispatch(
+        showAlert({
+          type: WARNING,
+          title: "Valid credentials required",
+          description: "Please enter your first and last name",
+        })
+      );
     }
     if (!userInput.userEmail || !userInput.userPassword) {
-      return setAlertData({
-        isShowing: true,
-        type: WARNING,
-        title: "Valid credentials required",
-        description: "Please enter your email and password",
-      });
+      return dispatch(
+        showAlert({
+          isShowing: true,
+          type: WARNING,
+          title: "Valid credentials required",
+          description: "Please enter your email and password",
+        })
+      );
     }
     if (userInput.userPassword.length < 6) {
-      return setAlertData({
-        isShowing: true,
-        type: WARNING,
-        title: "Weak Password",
-        description: "Password must be at least 6 characters long",
-      });
+      return dispatch(
+        showAlert({
+          isShowing: true,
+          type: WARNING,
+          title: "Weak Password",
+          description: "Password must be at least 6 characters long",
+        })
+      );
     }
     return true;
   }
@@ -45,7 +55,7 @@ const SignUpModal = () => {
   async function signInWithEmailManually(e) {
     e.preventDefault();
     if (!validateInput()) return;
-    setIsGloballyLoading(true);
+    dispatch(showGlobalLoading());
     try {
       await createUserWithEmailAndPassword(
         auth,
@@ -57,23 +67,27 @@ const SignUpModal = () => {
         photoURL:
           "https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg",
       });
-      setIsGloballyLoading(false);
-      setAlertData({
-        isShowing: true,
-        type: SUCCESS,
-        title: "Successfully signed up",
-        description: `Welcome ${userInput.firstName} ${userInput.lastName}`,
-      });
+      dispatch(hideGlobalLoading());
+      dispatch(
+        showAlert({
+          isShowing: true,
+          type: SUCCESS,
+          title: "Successfully signed up",
+          description: `Welcome ${userInput.firstName} ${userInput.lastName}`,
+        })
+      );
     } catch (err) {
       console.log(err);
-      setAlertData({
-        isShowing: true,
-        type: DANGER,
-        title: "Unable to sign up",
-        description: err.message,
-      });
+      dispatch(
+        showAlert({
+          isShowing: true,
+          type: DANGER,
+          title: "Unable to sign up",
+          description: err.message,
+        })
+      );
     }
-    setIsGloballyLoading(false);
+    dispatch(hideGlobalLoading());
   }
   return (
     <>
