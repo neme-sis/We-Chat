@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from "react";
+import React, { Fragment } from "react";
 import { auth } from "../config/firebaseConfig";
 import "../styles/ChatMessage.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -10,6 +10,9 @@ import useToggle from "../hooks/useToggle";
 import { SUCCESS } from "../Types/AlertTypes";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../reducer/globalNotificationsReducer";
+import firebase from "firebase/compat/app"; //sdk import
+import "firebase/compat/firestore"; //for the database
+import "firebase/compat/auth"; //for user authentication
 
 function copyToClipboard(text, setAlertData) {
   navigator.clipboard.writeText(text);
@@ -17,6 +20,26 @@ function copyToClipboard(text, setAlertData) {
     type: SUCCESS,
     title: "Successfully copied to clipboard",
   });
+}
+
+async function deleteMessage(messageId, setAlertData) {
+  try {
+    const messageCollection = firebase.firestore().collection("messages");
+    const query = messageCollection.where("messageId", "==", messageId);
+
+    const querySnapshot = await query.get();
+    querySnapshot.forEach(async (doc) => {
+      await doc.ref.delete();
+      setAlertData({ type: SUCCESS, title: `Message deleted successfully.` });
+    });
+  } catch (error) {
+    console.error("Error deleting message:", error);
+    setAlertData({
+      type: DANGER,
+      title: "Error deleting message",
+      description: "Please try again later",
+    });
+  }
 }
 
 const ChatMessage = ({
@@ -78,7 +101,8 @@ const ChatMessage = ({
     {
       name: <p style={{ color: "#d00" }}>Delete</p>,
       icon: <DeleteIcon size={20} color="#d00" />,
-      onClick: () => {},
+      onClick: () =>
+        deleteMessage(message.messageId, (data) => dispatch(showAlert(data))),
     },
     {
       name: <p>React</p>,
@@ -120,7 +144,7 @@ const ChatMessage = ({
                 className="read-more"
                 onClick={() => setTextLengthLimit((prev) => prev + textLimit)}
               >
-                ...Read More
+                {" ...Read More"}
               </span>
             )}
           </div>

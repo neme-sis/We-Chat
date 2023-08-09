@@ -5,6 +5,7 @@ import { IoSend } from "react-icons/io5";
 import { DANGER } from "../Types/AlertTypes";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../reducer/globalNotificationsReducer";
+import { v4 } from "uuid";
 
 const SendMessageBox = ({ goLast, messageCollection }) => {
   const [inputValue, setInputValue] = React.useState("");
@@ -26,6 +27,7 @@ const SendMessageBox = ({ goLast, messageCollection }) => {
     const { uid, photoURL, displayName } = firebase.auth().currentUser;
     setInputValue("");
     sendBox.current.style.height = "auto";
+    const uuid = v4();
     setIsMessageUploading(true);
     try {
       await messageCollection.add({
@@ -34,6 +36,7 @@ const SendMessageBox = ({ goLast, messageCollection }) => {
         uid,
         photoURL,
         displayName,
+        messageId: uuid,
       });
     } catch (err) {
       console.log(err);

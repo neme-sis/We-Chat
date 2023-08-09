@@ -1,14 +1,10 @@
 import React, { Fragment } from "react";
-
-import { v4 } from "uuid";
-
 import firebase from "firebase/compat/app"; //sdk import
 import "firebase/compat/firestore"; //for the database
 import "firebase/compat/auth"; //for user authentication
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useRef } from "react";
 import { useEffect } from "react";
-import SignOut from "../components/SignOut";
 import ChatMessage from "../components/ChatMessage";
 import SendMessageBox from "../components/SendMessageBox";
 import { AiOutlineArrowDown } from "react-icons/ai";
@@ -36,10 +32,10 @@ const Chat = () => {
   messages. */
   const messageCollection = firebase.firestore().collection("messages");
   const query = messageCollection.orderBy("createdAt");
-  const end = useRef();
   const [messages] = useCollectionData(query, { idField: "id" });
   const dispatch = useDispatch();
 
+  const end = useRef();
   const goLast = () => end.current.scrollIntoView({ behaviour: "smooth" });
 
   const dropArrow = React.useRef(null);
@@ -70,7 +66,6 @@ const Chat = () => {
         </div>
         {messages &&
           messages.map((message, i) => {
-            const uuid = v4();
             const isSameUser = prevUID === message.uid;
             prevUID = message.uid;
             if (!message.createdAt)
@@ -81,7 +76,7 @@ const Chat = () => {
 
             return (
               <ChatMessage
-                key={uuid}
+                key={message.messageId}
                 message={message}
                 showDetail={!isSameUser}
                 isLastMessage={i === messages.length - 1}
