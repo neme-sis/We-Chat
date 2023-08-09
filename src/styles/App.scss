@@ -6,6 +6,11 @@
   margin: 0;
   padding: 0;
 }
+body{
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 .App {
   min-height: 100vh;
   background: $backgroundDark;
