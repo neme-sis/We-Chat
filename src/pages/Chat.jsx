@@ -89,7 +89,11 @@ const Chat = () => {
           })}
         <span ref={end}></span>
       </div>
-      <SendMessageBox goLast={goLast} messageCollection={messageCollection} />
+      <SendMessageBox
+        goLast={goLast}
+        messageCollection={messageCollection}
+        dropArrow={dropArrow.current}
+      />
     </Fragment>
   );
 };

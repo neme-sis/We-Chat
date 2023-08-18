@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { showAlert } from "../reducer/globalNotificationsReducer";
 import { v4 } from "uuid";
 
-const SendMessageBox = ({ goLast, messageCollection }) => {
+const SendMessageBox = ({ goLast, messageCollection, dropArrow }) => {
   const [inputValue, setInputValue] = React.useState("");
   const [isMessageUploading, setIsMessageUploading] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
@@ -58,7 +58,7 @@ const SendMessageBox = ({ goLast, messageCollection }) => {
     let scrollHeight = sendBox.current.scrollHeight;
     scrollHeight = scrollHeight > 150 ? 150 : scrollHeight;
     sendBox.current.style.height = scrollHeight + "px";
-    goLast()
+    if (dropArrow.style.display === "none") goLast();
   }
 
   React.useEffect(() => {
