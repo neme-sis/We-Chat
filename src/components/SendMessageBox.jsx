@@ -58,6 +58,7 @@ const SendMessageBox = ({ goLast, messageCollection }) => {
     let scrollHeight = sendBox.current.scrollHeight;
     scrollHeight = scrollHeight > 150 ? 150 : scrollHeight;
     sendBox.current.style.height = scrollHeight + "px";
+    goLast()
   }
 
   React.useEffect(() => {
