@@ -13,6 +13,7 @@ import { showAlert } from "../reducer/globalNotificationsReducer";
 import firebase from "firebase/compat/app"; //sdk import
 import "firebase/compat/firestore"; //for the database
 import "firebase/compat/auth"; //for user authentication
+import Linkify from "../helper/Linkify";
 
 function copyToClipboard(text, setAlertData) {
   navigator.clipboard.writeText(text);
@@ -92,8 +93,6 @@ const ChatMessage = ({
     const threeDot =
       window.innerHeight -
       messageOptionsMenuToggler.current.getBoundingClientRect().top;
-
-    console.log(messageOptionsRef);
     if (threeDot >= 240) {
       messageOptionsRef.current.style.top = "35px";
       messageOptionsRef.current.style.transform = "translateY(0)";
@@ -153,9 +152,11 @@ const ChatMessage = ({
         )}
         <div className={`user-message user-message-${textClass}`}>
           <div className="message-content">
-            {text.length < textLengthLimit
-              ? text
-              : text.slice(0, textLengthLimit)}
+            <Linkify>
+              {text.length < textLengthLimit
+                ? text
+                : text.slice(0, textLengthLimit)}
+            </Linkify>
             {text.length > textLengthLimit && (
               <span
                 className="read-more"

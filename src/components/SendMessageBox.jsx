@@ -2,15 +2,18 @@ import React from "react";
 import "../styles/SendMessageBox.scss";
 import firebase from "firebase/compat/app"; //sdk import
 import { IoSend } from "react-icons/io5";
-import { DANGER } from "../Types/AlertTypes";
+import { DANGER, SUCCESS } from "../Types/AlertTypes";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../reducer/globalNotificationsReducer";
 import { v4 } from "uuid";
+import { ref, uploadBytes } from "firebase/storage";
+import { storage } from "../config/firebaseConfig";
 
 const SendMessageBox = ({ goLast, messageCollection, dropArrow }) => {
   const [inputValue, setInputValue] = React.useState("");
   const [isMessageUploading, setIsMessageUploading] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
+  const [uploadedImage, setUploadedImage] = React.useState(null);
   const sendBox = React.useRef();
   const dispatch = useDispatch();
 
@@ -61,6 +64,26 @@ const SendMessageBox = ({ goLast, messageCollection, dropArrow }) => {
     if (dropArrow.style.display === "none") goLast();
   }
 
+  async function uploadImageHandler(e) {
+    e.preventDefault();
+    if (!uploadedImage) return;
+    const uid = v4();
+    const imageRef = ref(storage, `images/${uploadedImage.name + uid}`);
+    try {
+      await uploadBytes(imageRef, uploadedImage, {
+        contentType: uploadedImage.type,
+      });
+    } catch (err) {
+      dispatch(
+        showAlert({
+          type: DANGER,
+          title: "Unable to upload image",
+          description: "Please try again later.",
+        })
+      );
+    }
+  }
+
   React.useEffect(() => {
     if (sendBox.current) sendBox.current.addEventListener("input", autoResize);
 
@@ -72,6 +95,12 @@ const SendMessageBox = ({ goLast, messageCollection, dropArrow }) => {
 
   return (
     <form onSubmit={send} className="send-message-wrapper">
+      {/* <input
+        type="file"
+        onChange={(e) => setUploadedImage(e.target.files[0])}
+        accept="image/*"
+      />
+      <button onClick={uploadImageHandler}>Submit</button> */}
       <textarea
         type="text"
         placeholder="Write a message..."

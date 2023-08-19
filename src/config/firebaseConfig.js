@@ -3,6 +3,7 @@ import "firebase/compat/firestore"; //for the database
 import "firebase/compat/auth"; //for user authentication
 import { useAuthState } from "react-firebase-hooks/auth"; //auth hook
 import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfigOptions = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -14,7 +15,7 @@ const firebaseConfigOptions = {
   measurementId: "G-956ZM5MKF3",
 };
 
-firebase.initializeApp(firebaseConfigOptions);
+const app = firebase.initializeApp(firebaseConfigOptions);
 
 export const auth = getAuth();
 
@@ -23,3 +24,5 @@ export const useFirebaseSignUp = () => {
 
   return user;
 };
+
+export const storage = getStorage(app);
