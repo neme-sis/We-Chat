@@ -37,16 +37,27 @@ const Chat = () => {
 
   const end = useRef();
   const goLast = () => end.current.scrollIntoView({ behaviour: "smooth" });
+  const [messageLoaded, setMessageLoaded] = React.useState(false);
 
   const dropArrow = React.useRef(null);
   const allMessageContainer = React.useRef(null);
   /* The `useEffect` hook is used to perform side effects in a React component. In this case, it is
   used to scroll to the last message in the chat whenever the `messages` array changes. */
   useEffect(() => {
-    if (!messages) dispatch(showGlobalLoading());
-    else dispatch(hideGlobalLoading());
-    goLast();
+    if (!messages) {
+      dispatch(showGlobalLoading());
+      setMessageLoaded(false);
+    } else {
+      dispatch(hideGlobalLoading());
+      setMessageLoaded(true);
+    }
   }, [messages]);
+
+  useEffect(() => {
+    if (messageLoaded) {
+      goLast();
+    }
+  }, [messageLoaded]);
 
   let prevUID = "",
     prevDate = "";
