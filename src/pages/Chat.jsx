@@ -84,6 +84,7 @@ const Chat = () => {
                 isSameDay={isSameDay}
                 allMessageContainer={allMessageContainer.current}
                 lastMessageRef={end}
+                goLast={goLast}
               />
             );
           })}

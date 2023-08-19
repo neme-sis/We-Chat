@@ -8,7 +8,8 @@
   z-index: 1000;
   background: $backgroundDark;
 
-  > .image-previewer-close {
+  > .image-previewer-close,
+  .image-previewer-download {
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -22,10 +23,19 @@
     aspect-ratio: 1;
     border-radius: 50%;
     > svg path {
-      stroke: $userTextBg;
+      stroke: #fff;
     }
     &:hover {
       background-color: #280064;
+    }
+  }
+  > .image-previewer-download {
+    right: 5rem;
+    > svg {
+      fill: #fff;
+      > path {
+        stroke: #fff;
+      }
     }
   }
 

@@ -52,6 +52,7 @@ const ChatMessage = ({
   isSameDay,
   allMessageContainer,
   lastMessageRef,
+  goLast,
 }) => {
   const { text, uid, photoURL, displayName, createdAt, image } = message;
   const dispatch = useDispatch();
@@ -169,6 +170,7 @@ const ChatMessage = ({
                   src={image}
                   className="message-image"
                   alt="message-image"
+                  onLoad={goLast}
                 />
               </div>
             )}
