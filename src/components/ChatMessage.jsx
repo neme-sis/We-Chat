@@ -63,6 +63,7 @@ const ChatMessage = ({
   const textClass = auth.currentUser.uid === uid ? "sent" : "recieved";
 
   const messageOptionsMenuToggler = React.useRef(null);
+  const messageOptionsRef = React.useRef(null);
   const [messageOptions, toggleMessageOptions] = useToggle(
     messageOptionsMenuToggler
   );
@@ -85,6 +86,22 @@ const ChatMessage = ({
     } else {
       dropArrow.style.display = "flex";
     }
+  }
+
+  function messageOptionsHandler() {
+    const threeDot =
+      window.innerHeight -
+      messageOptionsMenuToggler.current.getBoundingClientRect().top;
+
+    console.log(messageOptionsRef);
+    if (threeDot >= 240) {
+      messageOptionsRef.current.style.top = "35px";
+      messageOptionsRef.current.style.transform = "translateY(0)";
+    } else {
+      messageOptionsRef.current.style.top = "0px";
+      messageOptionsRef.current.style.transform = "translateY(-95%)";
+    }
+    toggleMessageOptions();
   }
 
   React.useEffect(() => {
@@ -153,27 +170,29 @@ const ChatMessage = ({
           </div>
           <div
             className="three-dot"
-            onClick={toggleMessageOptions}
+            onClick={messageOptionsHandler}
             ref={messageOptionsMenuToggler}
           >
             <BsThreeDotsVertical />
           </div>
-          {messageOptions && (
-            <div className="message-handling-options">
-              {optionsForMessage.map((opt, _) => (
-                <div
-                  className="message-handling-option"
-                  key={_}
-                  onClick={opt.onClick}
-                >
-                  {opt.icon && (
-                    <div className="message-option-icon">{opt.icon}</div>
-                  )}
-                  <div className="message-option-name">{opt.name}</div>
-                </div>
-              ))}
-            </div>
-          )}
+          <div
+            className="message-handling-options"
+            ref={messageOptionsRef}
+            style={{ display: messageOptions ? "block" : "none" }}
+          >
+            {optionsForMessage.map((opt, _) => (
+              <div
+                className="message-handling-option"
+                key={_}
+                onClick={opt.onClick}
+              >
+                {opt.icon && (
+                  <div className="message-option-icon">{opt.icon}</div>
+                )}
+                <div className="message-option-name">{opt.name}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </Fragment>
