@@ -35,5 +35,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    aspect-ratio: 1;
+    &:hover {
+      border-radius: 50%;
+      background-color: #280064;
+    }
   }
 }

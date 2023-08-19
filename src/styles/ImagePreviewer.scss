@@ -1,0 +1,97 @@
+@import "../var.scss";
+.image-previewer-wrapper {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: $backgroundDark;
+
+  > .image-previewer-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    > svg path {
+      stroke: $userTextBg;
+    }
+    &:hover {
+      background-color: #280064;
+    }
+  }
+
+  > .image-previewer-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(100%, 600px);
+    > .image-previewer {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background-image: url("../assets/png-background.webp");
+      > img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
+.send-image-wrapper {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #19142b;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+
+  > textarea {
+    resize: none;
+    width: min(70%, 900px);
+    background-color: transparent;
+    border: 1px solid $nonUserText;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    color: #ffffff;
+    font-size: 1.2rem;
+    &::placeholder {
+      font-size: 1.1rem;
+      color: $nonUserText;
+    }
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  > button {
+    background-color: transparent;
+    border: none;
+    margin-left: 1.5rem;
+    cursor: pointer;
+    height: 43.2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    &:hover {
+      border-radius: 50%;
+      background-color: #280064;
+    }
+    &:disabled {
+      cursor: wait;
+      scale: 0.9;
+    }
+  }
+}
