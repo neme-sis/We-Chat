@@ -50,12 +50,11 @@
   }
 }
 .user-message {
-  padding: 0.75rem 1.25rem;
-  border-radius: 20px;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
   word-wrap: break-word;
   max-width: min(90%, 800px);
   letter-spacing: 0.1px;
-  padding-right: 3rem;
   padding-bottom: 2rem;
   position: relative;
   text-rendering: geometricPrecision;
@@ -63,9 +62,21 @@
     font-size: 18px;
     overflow-x: hidden;
     text-overflow: ellipsis;
-    > .read-more {
+    > .message-image-wrapper {
+      width: 100%;
+      border-radius: 10px;
+      cursor: pointer;
+      > img {
+        max-height: 300px;
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 10px;
+        background: url("../assets/png-background.jpg");
+      }
+    }
+    > div .read-more {
       font-size: 14px;
-      color: rgb(137, 166, 255);
+      color: #89a6ff;
       opacity: 0.7;
       text-align: right;
       cursor: pointer;
@@ -87,9 +98,12 @@
   > .three-dot {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 0px;
     display: none;
     cursor: pointer;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    z-index: 100;
     &:hover {
       opacity: 0.7;
     }
@@ -114,12 +128,12 @@
         color: #eee;
         background-color: #29274a;
       }
-      >.message-option-icon {
+      > .message-option-icon {
         margin-right: 0.5rem;
         display: flex;
         align-items: center;
       }
-      >.message-option-name {
+      > .message-option-name {
         display: flex;
         align-items: center;
       }

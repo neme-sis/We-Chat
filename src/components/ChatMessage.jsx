@@ -14,6 +14,7 @@ import firebase from "firebase/compat/app"; //sdk import
 import "firebase/compat/firestore"; //for the database
 import "firebase/compat/auth"; //for user authentication
 import Linkify from "../helper/Linkify";
+import ImagePreviewer from "./ImagePreviewer";
 
 function copyToClipboard(text, setAlertData) {
   navigator.clipboard.writeText(text);
@@ -52,7 +53,7 @@ const ChatMessage = ({
   allMessageContainer,
   lastMessageRef,
 }) => {
-  const { text, uid, photoURL, displayName, createdAt } = message;
+  const { text, uid, photoURL, displayName, createdAt, image } = message;
   const dispatch = useDispatch();
   const textLimit = 400;
   const [textLengthLimit, setTextLengthLimit] = React.useState(textLimit);
@@ -68,6 +69,7 @@ const ChatMessage = ({
   const [messageOptions, toggleMessageOptions] = useToggle(
     messageOptionsMenuToggler
   );
+  const [previewImage, setPreviewImage] = React.useState(null);
 
   function createObserver() {
     let options = {
@@ -136,6 +138,12 @@ const ChatMessage = ({
           <div className="line"></div>
         </div>
       )}
+      {previewImage && (
+        <ImagePreviewer
+          img={previewImage}
+          onClose={() => setPreviewImage(null)}
+        />
+      )}
       <div
         className={`chat chat-${textClass} ${
           isLastMessage ? "last-message" : ""
@@ -152,18 +160,36 @@ const ChatMessage = ({
         )}
         <div className={`user-message user-message-${textClass}`}>
           <div className="message-content">
-            <Linkify>
-              {text.length < textLengthLimit
-                ? text
-                : text.slice(0, textLengthLimit)}
-            </Linkify>
-            {text.length > textLengthLimit && (
-              <span
-                className="read-more"
-                onClick={() => setTextLengthLimit((prev) => prev + textLimit)}
+            {image && (
+              <div
+                className="message-image-wrapper"
+                onClick={() => setPreviewImage(image)}
               >
-                {" ...Read More"}
-              </span>
+                <LazyLoadImage
+                  src={image}
+                  className="message-image"
+                  alt="message-image"
+                />
+              </div>
+            )}
+            {text && (
+              <div>
+                <Linkify>
+                  {text.length < textLengthLimit
+                    ? text
+                    : text.slice(0, textLengthLimit)}
+                </Linkify>
+                {text.length > textLengthLimit && (
+                  <span
+                    className="read-more"
+                    onClick={() =>
+                      setTextLengthLimit((prev) => prev + textLimit)
+                    }
+                  >
+                    {" ...Read More"}
+                  </span>
+                )}
+              </div>
             )}
           </div>
           <div className="timestamp">
@@ -174,7 +200,7 @@ const ChatMessage = ({
             onClick={messageOptionsHandler}
             ref={messageOptionsMenuToggler}
           >
-            <BsThreeDotsVertical />
+            <BsThreeDotsVertical color="#fff" />
           </div>
           <div
             className="message-handling-options"
