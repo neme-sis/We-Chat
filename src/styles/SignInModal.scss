@@ -43,6 +43,9 @@
       padding-left: 0.5rem;
       &::placeholder {
         font-size: 14px;
+        @media screen and (max-width: $sm) {
+          font-size: 12px;
+        }
       }
     }
     > .user-detail:focus + .input-label,

@@ -100,7 +100,7 @@ const SignUpModal = () => {
               className="user-detail user-detail-first-name"
               name="user-first-name"
               id="user-first-name"
-              placeholder="Enter Your First Name..."
+              placeholder="Enter First Name..."
               value={userInput.firstName}
               onChange={(e) =>
                 setUserInput((prev) => ({
@@ -119,7 +119,7 @@ const SignUpModal = () => {
               className="user-detail user-detail-last-name"
               name="user-last-name"
               id="user-last-name"
-              placeholder="Enter Your Last Name..."
+              placeholder="Enter Last Name..."
               value={userInput.lastName}
               onChange={(e) =>
                 setUserInput((prev) => ({

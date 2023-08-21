@@ -3,19 +3,31 @@
   min-height: 100vh;
   display: flex;
   width: 100%;
+  align-items: center;
 }
 .sign-in-container-image {
   width: 100vh;
   background-image: url("../assets/2659380.png");
-  background-size: 80% 80%;
+  background-size: 80% auto;
   background-repeat: no-repeat;
   background-position: center;
+  height: 100vh;
+  @media screen and (max-width: $xl) {
+    width: 80vh;
+  }
+  @media screen and (max-width: $lg) {
+    width: 60vh;
+  }
+  @media screen and (max-width: $md) {
+    display: none;
+  }
 }
 .sign-in-container-content {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 1rem;
 }
 .sign-user-container {
   border: 1px solid #fff;
@@ -23,6 +35,16 @@
   min-height: 200px;
   min-width: 55%;
   padding: 2rem 0;
+
+  @media screen and (max-width: $lg) {
+    min-width: 65%;
+  }
+  @media screen and (max-width: $md) {
+    min-width: 80%;
+  }
+  @media screen and (max-width: $sm) {
+    min-width: 90%;
+  }
 
   > .option-or {
     display: flex;
