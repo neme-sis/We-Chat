@@ -63,13 +63,15 @@
     overflow-x: hidden;
     text-overflow: ellipsis;
     > .message-image-wrapper {
+      min-height: 300px;
+      min-width: 300px;
       width: 100%;
       border-radius: 10px;
       cursor: pointer;
       > img {
-        max-height: 300px;
+        height: 300px;
+        min-width: 300px;
         width: 100%;
-        aspect-ratio: 1;
         border-radius: 10px;
         background: url("../assets/png-background.jpg");
       }

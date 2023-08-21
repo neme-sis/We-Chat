@@ -41,6 +41,7 @@ const Chat = () => {
 
   const dropArrow = React.useRef(null);
   const allMessageContainer = React.useRef(null);
+  let lastImageIndex = -1;
   /* The `useEffect` hook is used to perform side effects in a React component. In this case, it is
   used to scroll to the last message in the chat whenever the `messages` array changes. */
   useEffect(() => {
@@ -50,6 +51,7 @@ const Chat = () => {
     } else {
       dispatch(hideGlobalLoading());
       setMessageLoaded(true);
+      lastImageIndex = messages.findLastIndex((m) => m.image);
     }
   }, [messages]);
 
@@ -96,6 +98,7 @@ const Chat = () => {
                 allMessageContainer={allMessageContainer.current}
                 lastMessageRef={end}
                 goLast={goLast}
+                lastImage={lastImageIndex === i}
               />
             );
           })}

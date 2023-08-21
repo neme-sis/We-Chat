@@ -53,6 +53,7 @@ const ChatMessage = ({
   allMessageContainer,
   lastMessageRef,
   goLast,
+  lastImage,
 }) => {
   const { text, uid, photoURL, displayName, createdAt, image } = message;
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ const ChatMessage = ({
     messageOptionsMenuToggler
   );
   const [previewImage, setPreviewImage] = React.useState(null);
+  const [imageLoaded, setImageLoaded] = React.useState(false);
 
   function createObserver() {
     let options = {
@@ -170,7 +172,14 @@ const ChatMessage = ({
                   src={image}
                   className="message-image"
                   alt="message-image"
-                  onLoad={goLast}
+                  onLoad={() => {
+                    if (lastImage) goLast();
+                  }}
+                  beforeLoad={() => setImageLoaded(false)}
+                  afterLoad={() => setImageLoaded(true)}
+                  style={{
+                    opacity: imageLoaded ? 1 : 0.5,
+                  }}
                 />
               </div>
             )}
