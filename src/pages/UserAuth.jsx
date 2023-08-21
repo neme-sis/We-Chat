@@ -47,7 +47,7 @@ const UserAuth = ({ children, ...props }) => {
               onClick={signInAuthWithGoogle}
             >
               <FcGoogle size={"30px"} />
-              <p>Sign in with Google</p>
+              <p>Sign In with Google</p>
             </button>
           </div>
         </div>
