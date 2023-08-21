@@ -23,6 +23,9 @@
   flex-direction: column;
   padding: 0 3rem;
   align-items: start;
+  @media screen and (max-width: $md) {
+    padding: 0 1rem;
+  }
 }
 .chat-sent {
   align-items: end;
@@ -58,6 +61,12 @@
   padding-bottom: 2rem;
   position: relative;
   text-rendering: geometricPrecision;
+  @media screen and (max-width: $md) {
+    padding: 0.5rem 0.75rem;
+    padding-bottom: 1.5rem;
+    padding-right: 1rem;
+  }
+
   > .message-content {
     font-size: 18px;
     overflow-x: hidden;
@@ -67,13 +76,22 @@
       min-width: 300px;
       width: 100%;
       border-radius: 10px;
+      margin-bottom: 0.25rem;
       cursor: pointer;
+      @media screen and (max-width: $md) {
+        min-height: 200px;
+        min-width: 200px;
+      }
       > img {
         height: 300px;
         min-width: 300px;
         width: 100%;
         border-radius: 10px;
         background: url("../assets/png-background.jpg");
+        @media screen and (max-width: $md) {
+          height: 200px;
+          min-width: 200px;
+        }
       }
     }
     > div .read-more {
@@ -96,6 +114,9 @@
     text-align: right;
     bottom: 0.5rem;
     right: 1rem;
+    @media screen and (max-width: $md) {
+      bottom: 0.25rem;
+    }
   }
   > .three-dot {
     position: absolute;
@@ -108,6 +129,9 @@
     z-index: 100;
     &:hover {
       opacity: 0.7;
+    }
+    @media screen and (max-width: $md) {
+      display: block;
     }
   }
 
