@@ -1,0 +1,186 @@
+@import "../var.scss";
+.date-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+  width: 70%;
+  > .line {
+    flex: 1;
+    height: 1px;
+    background-color: #fff;
+    opacity: 0.2;
+    margin: 0 1rem;
+  }
+  > .date {
+    font-size: 12px;
+    opacity: 0.5;
+    text-transform: uppercase;
+  }
+}
+.chat {
+  display: flex;
+  flex-direction: column;
+  padding: 0 3rem;
+  align-items: start;
+  @media screen and (max-width: $md) {
+    padding: 0 1rem;
+  }
+}
+.chat-sent {
+  align-items: end;
+}
+.user-details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  margin-left: 0.25rem;
+
+  > .user-img-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 40%;
+  }
+  > p {
+    text-transform: capitalize;
+    margin-left: 1rem;
+  }
+}
+.user-details-sent {
+  flex-direction: row-reverse;
+  > p {
+    margin-right: 1rem;
+  }
+}
+.user-message {
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  word-wrap: break-word;
+  min-width: 65px;
+  max-width: min(90%, 800px);
+  letter-spacing: 0.1px;
+  padding-bottom: 2rem;
+  position: relative;
+  text-rendering: geometricPrecision;
+  @media screen and (max-width: $md) {
+    padding: 0.5rem 0.75rem;
+    padding-bottom: 1.5rem;
+    padding-right: 1rem;
+  }
+
+  > .message-content {
+    font-size: 18px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    > .message-image-wrapper {
+      min-height: 300px;
+      min-width: 300px;
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 0.25rem;
+      cursor: pointer;
+      @media screen and (max-width: $md) {
+        min-height: 200px;
+        min-width: 200px;
+      }
+      > img {
+        height: 300px;
+        min-width: 300px;
+        width: 100%;
+        border-radius: 10px;
+        background: url("../assets/png-background.jpg");
+        @media screen and (max-width: $md) {
+          height: 200px;
+          min-width: 200px;
+        }
+      }
+    }
+    > div .read-more {
+      font-size: 14px;
+      color: #89a6ff;
+      opacity: 0.7;
+      text-align: right;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+        text-decoration: underline;
+      }
+    }
+  }
+  > .timestamp {
+    position: absolute;
+    font-size: 12px;
+    color: #fff;
+    opacity: 0.7;
+    text-align: right;
+    bottom: 0.5rem;
+    right: 1rem;
+    @media screen and (max-width: $md) {
+      bottom: 0.25rem;
+    }
+  }
+  > .three-dot {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    display: none;
+    cursor: pointer;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    z-index: 100;
+    &:hover {
+      opacity: 0.7;
+    }
+    @media screen and (max-width: $md) {
+      display: block;
+    }
+  }
+
+  > .message-handling-options {
+    position: absolute;
+    top: 35px;
+    right: 10px;
+    padding: 0.5rem 0;
+    border-radius: 10px;
+    background: $nonUserTextBg;
+    z-index: 1;
+    > .message-handling-option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 2rem;
+      cursor: pointer;
+      color: #fff;
+      &:hover {
+        color: #eee;
+        background-color: #29274a;
+      }
+      > .message-option-icon {
+        margin-right: 0.5rem;
+        display: flex;
+        align-items: center;
+      }
+      > .message-option-name {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}
+.user-message-sent {
+  background-color: $userTextBg;
+  color: $userText;
+}
+.user-message-recieved {
+  background-color: $nonUserTextBg;
+  color: $nonUserText;
+}
+.chat {
+  .user-message {
+    &:hover {
+      .three-dot {
+        display: block;
+      }
+    }
+  }
+}

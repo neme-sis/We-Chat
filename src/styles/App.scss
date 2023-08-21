@@ -1,0 +1,21 @@
+@import "../var.scss";
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+* {
+  box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+body{
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.App {
+  min-height: 100vh;
+  background: $backgroundDark;
+  background-size: 100vw 100vh;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}

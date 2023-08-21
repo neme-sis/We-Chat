@@ -1,0 +1,90 @@
+@import "../var.scss";
+.we-chat-loader-wrapper {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 10rem;
+  background: $backgroundDark;
+  z-index: 999;
+}
+.we-chat-loader {
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+  color: white;
+}
+
+.we-chat-letter {
+  position: relative;
+  top: 3.63em;
+  display: inline-block;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: rotateX(-90deg);
+  font-size: 1.5rem;
+}
+
+.we-chat-letter-1 {
+  animation: drop 1s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+
+.we-chat-letter-2 {
+  animation: drop 1s ease-in-out infinite;
+  animation-delay: 0.3s;
+}
+
+.we-chat-letter-3 {
+  animation: drop 1s ease-in-out infinite;
+  animation-delay: 0.4s;
+}
+
+.we-chat-letter-4 {
+  animation: drop 1s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.we-chat-letter-5 {
+  animation: drop 1s ease-in-out infinite;
+  animation-delay: 0.6s;
+}
+
+.we-chat-letter-6 {
+  animation: drop 1s ease-in-out infinite;
+  animation-delay: 0.7s;
+}
+
+.we-chat-letter-7 {
+  animation: drop 1s ease-in-out infinite;
+  animation-delay: 0.8s;
+}
+
+@keyframes drop {
+  10% {
+    opacity: 0.5;
+  }
+  20% {
+    opacity: 1;
+    top: 5em;
+    transform: rotateX(-360deg);
+  }
+  80% {
+    opacity: 1;
+    top: 5em;
+    transform: rotateX(-360deg);
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    top: 7.94em;
+  }
+}
+
+.we-chat-logo_loader {
+  width: 300px;
+}

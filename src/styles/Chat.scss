@@ -1,0 +1,67 @@
+@import "../var.scss";
+.chat-all {
+  max-height: calc(100vh - 83.2px - 4rem);
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $userTextBg;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $nonUserTextBg;
+  }
+  > span {
+    height: 2rem;
+    display: block;
+  }
+
+  > .disclaimer-text {
+    background-color: $nonUserTextBg;
+    color: $userText;
+    width: min(70%, 800px);
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    font-style: italic;
+  }
+}
+.drop-arrow {
+  position: fixed;
+  top: 80%;
+  right: 10%;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background-color: $nonUserTextBg;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  animation: godown 750ms infinite both alternate linear;
+  z-index: 900;
+  > svg {
+    fill: #fff;
+  }
+  &:hover {
+    transform: scale(1.05);
+    background-color: #fff;
+    animation-play-state: paused;
+    > svg {
+      fill: $nonUserTextBg;
+    }
+  }
+}
+
+@keyframes godown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}

@@ -1,0 +1,41 @@
+@import "../var.scss";
+.attachment-uploader-handlers-wrapper {
+  position: relative;
+  > .attachment-options {
+    position: absolute;
+    min-width: 175px;
+    padding: 0.5rem 0;
+    border-radius: 10px;
+    background-color: #363361;
+    top: 0;
+    transform: translateY(calc(-100% - 0.25rem));
+    > .attachment-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      &:hover {
+        background-color: #29274a;
+      }
+    }
+  }
+}
+.attachment-uploader-button {
+  margin-right: 1.5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: 43.2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  > svg path {
+    stroke: $userTextBg;
+  }
+  &:hover {
+    background-color: #280064;
+  }
+}
