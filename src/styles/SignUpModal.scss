@@ -89,3 +89,13 @@
     }
   }
 }
+
+// !important should be removed later, but for now it is necessary
+.user-inputs-container-sign-up-LIGHT{
+  .input-label{
+    background: $backgroundLight !important;
+  }
+  .user-detail{
+    border: 1px solid $nonUserText !important;
+  }
+}

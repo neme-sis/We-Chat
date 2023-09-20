@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
 import { DANGER, SUCCESS, WARNING } from "../Types/AlertTypes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   hideGlobalLoading,
   showAlert,
@@ -61,6 +61,7 @@ const SignInModal = () => {
     }
     dispatch(hideGlobalLoading());
   }
+  const theme = useSelector((state) => state.globalNotifications.theme);
   return (
     <>
       <h2 className="sign-in-header">Sign In</h2>
@@ -68,7 +69,7 @@ const SignInModal = () => {
         <div className="user-detail-input">
           <input
             type="email"
-            className="user-detail user-detail-email"
+            className={`user-detail user-detail-email user-detail-${theme}`}
             name="user-email"
             id="user-email"
             placeholder="Enter Your Email..."
@@ -80,14 +81,17 @@ const SignInModal = () => {
               }))
             }
           />
-          <label htmlFor="user-email" className="input-label">
+          <label
+            htmlFor="user-email"
+            className={`input-label input-label-${theme}`}
+          >
             Email
           </label>
         </div>
         <div className="user-detail-input">
           <input
             type="password"
-            className="user-detail user-detail-password"
+            className={`user-detail user-detail-password user-detail-${theme}`}
             name="user-password"
             id="user-password"
             placeholder="Enter Your Password..."
@@ -99,7 +103,10 @@ const SignInModal = () => {
               }))
             }
           />
-          <label htmlFor="user-password" className="input-label">
+          <label
+            htmlFor="user-password"
+            className={`input-label input-label-${theme}`}
+          >
             Password
           </label>
         </div>

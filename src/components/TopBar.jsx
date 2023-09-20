@@ -7,7 +7,7 @@ import SignOut from "./SignOut";
 import ThemeTogglerButton from "./ThemeTogglerButton";
 import { useSelector } from "react-redux";
 
-const TopBar = () => {
+const TopBar = ({notSignedIn}) => {
   const theme = useSelector((state) => state.globalNotifications.theme);
   return (
     <div className={`top-bar top-bar-${theme}`}>
@@ -16,15 +16,21 @@ const TopBar = () => {
         <div className="theme-toggler-button">
           <ThemeTogglerButton />
         </div>
-        <LazyLoadImage
-          src={auth.currentUser.photoURL}
-          alt=""
-          className="top-bar-profile-pic"
-          height={30}
-        />
-        <div className="top-bar-sign-out">
-          <SignOut />
-        </div>
+        {notSignedIn ? (
+          <></>
+        ) : (
+          <>
+            <LazyLoadImage
+              src={auth.currentUser.photoURL}
+              alt=""
+              className="top-bar-profile-pic"
+              height={30}
+            />
+            <div className="top-bar-sign-out">
+              <SignOut />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

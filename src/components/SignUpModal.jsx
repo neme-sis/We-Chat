@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
 import { DANGER, SUCCESS, WARNING } from "../Types/AlertTypes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   hideGlobalLoading,
   showAlert,
@@ -89,10 +89,13 @@ const SignUpModal = () => {
     }
     dispatch(hideGlobalLoading());
   }
+  const theme = useSelector((state) => state.globalNotifications.theme);
   return (
     <>
       <h2 className="sign-up-header">Sign Up</h2>
-      <div className="user-inputs-container-sign-up">
+      <div
+        className={`user-inputs-container-sign-up user-inputs-container-sign-up-${theme}`}
+      >
         <div className="user-detail-input-sub-container">
           <div className="user-detail-input user-detail-input-sub">
             <input
