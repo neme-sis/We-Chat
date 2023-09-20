@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/ImagePreviewer.scss";
 import { GrClose } from "react-icons/gr";
 import { IoSend } from "react-icons/io5";
-import { MdOpenInNew } from "react-icons/md";
+import { BsDownload } from "react-icons/bs";
 import { v4 } from "uuid";
 
 const ImagePreviewer = ({
@@ -15,25 +15,29 @@ const ImagePreviewer = ({
   setInputValue,
   sendBox,
 }) => {
-  function downloadUsingAnchorElement() {
-    const anchor = document.createElement("a");
-    anchor.href = img;
-    anchor.download = "wechat_media" + v4() + ".jpg";
-    anchor.target = "_blank";
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
+  async function downloadFile() {
+    try {
+      const response = await fetch(img);
+      const blob = await response.blob();
+      const uuid = v4();
+      const downloadLink = document.createElement("a");
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = `we-chat-media-${uuid}.jpeg`;
+
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   if (!img) return null;
   return (
     <div className="image-previewer-wrapper">
       {!senderMode && (
-        <div
-          className="image-previewer-download"
-          onClick={downloadUsingAnchorElement}
-        >
-          <MdOpenInNew size={30} />
+        <div className="image-previewer-download" onClick={downloadFile}>
+          <BsDownload size={30} />
         </div>
       )}
       <div className="image-previewer-close" onClick={onClose}>
