@@ -118,17 +118,20 @@ const ChatMessage = ({
       name: <p>Copy</p>,
       icon: <CopyIcon size={20} />,
       onClick: () => copyToClipboard(text, (data) => dispatch(showAlert(data))),
+      show: true,
     },
     {
       name: <p style={{ color: "#d00" }}>Delete</p>,
       icon: <DeleteIcon size={20} color="#d00" />,
       onClick: () =>
         deleteMessage(message.messageId, (data) => dispatch(showAlert(data))),
+      show: textClass === "sent",
     },
     {
       name: <p>React</p>,
       icon: <ReactIcon size={20} />,
       onClick: () => {},
+      show: true,
     },
   ];
 
@@ -235,6 +238,7 @@ const ChatMessage = ({
                 className="message-handling-option"
                 key={_}
                 onClick={opt.onClick}
+                style={{ display: opt.show ? "flex" : "none" }}
               >
                 {opt.icon && (
                   <div className="message-option-icon">{opt.icon}</div>
