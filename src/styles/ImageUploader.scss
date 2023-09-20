@@ -20,6 +20,15 @@
       }
     }
   }
+  >.attachment-options-LIGHT{
+    background-color: $backgroundLight;
+    border: 1px solid $nonUserTextBgLight;
+    > .attachment-option{
+      &:hover{
+        background-color: $nonUserTextBgLight;
+      }
+    }
+  }
 }
 .attachment-uploader-button {
   margin-right: 1.5rem;
@@ -37,5 +46,10 @@
   }
   &:hover {
     background-color: #280064;
+  }
+}
+.attachment-uploader-button-LIGHT{
+  &:hover{
+    background-color: $nonUserTextBgLight;
   }
 }

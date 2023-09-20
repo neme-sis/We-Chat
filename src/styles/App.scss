@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
 }
-body{
+body {
   &::-webkit-scrollbar {
     display: none;
   }
@@ -18,4 +18,8 @@ body{
   display: flex;
   flex-direction: column;
   color: white;
+}
+.App-LIGHT {
+  color: $nonUserTextBg;
+  background: $backgroundLight;
 }

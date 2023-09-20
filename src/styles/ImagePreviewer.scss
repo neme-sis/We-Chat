@@ -58,6 +58,26 @@
     }
   }
 }
+.image-previewer-wrapper-LIGHT {
+  background: $backgroundLight;
+  > .image-previewer-close,
+  .image-previewer-download {
+    > svg path {
+      stroke: $userTextBg;
+    }
+    &:hover {
+      background-color: $nonUserTextBgLight;
+    }
+  }
+  > .image-previewer-download {
+    > svg {
+      fill: $userTextBg;
+      > path {
+        stroke: $userTextBg;
+      }
+    }
+  }
+}
 .send-image-wrapper {
   position: fixed;
   bottom: 0;
@@ -102,6 +122,22 @@
     &:disabled {
       cursor: wait;
       scale: 0.9;
+    }
+  }
+}
+.send-image-wrapper-LIGHT {
+  background: $backgroundLight;
+  border-top: 1px solid $nonUserTextBgLight;
+  > textarea {
+    color: $nonUserTextBg;
+    border: 1px solid userTextBg;
+    &::placeholder{
+      color: userTextBg;
+    }
+  }
+  >button{
+    &:hover{
+      background-color: #d7d7fc;
     }
   }
 }

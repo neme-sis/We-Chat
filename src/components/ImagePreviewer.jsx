@@ -4,6 +4,7 @@ import { GrClose } from "react-icons/gr";
 import { IoSend } from "react-icons/io5";
 import { BsDownload } from "react-icons/bs";
 import { v4 } from "uuid";
+import { useSelector } from "react-redux";
 
 const ImagePreviewer = ({
   senderMode,
@@ -32,9 +33,11 @@ const ImagePreviewer = ({
     }
   }
 
+  const theme = useSelector((state) => state.globalNotifications.theme);
+
   if (!img) return null;
   return (
-    <div className="image-previewer-wrapper">
+    <div className={`image-previewer-wrapper image-previewer-wrapper-${theme}`}>
       {!senderMode && (
         <div className="image-previewer-download" onClick={downloadFile}>
           <BsDownload size={30} />
@@ -52,7 +55,7 @@ const ImagePreviewer = ({
         </div>
       </div>
       {senderMode && (
-        <form onSubmit={onSubmit} className="send-image-wrapper">
+        <form onSubmit={onSubmit} className={`send-image-wrapper send-image-wrapper-${theme}`}>
           <textarea
             type="text"
             placeholder="Write a message..."

@@ -3,16 +3,19 @@ import { GrAttachment } from "react-icons/gr";
 import { BsImageFill } from "react-icons/bs";
 import useToggle from "../hooks/useToggle";
 import "../styles/ImageUploader.scss";
+import { useSelector } from "react-redux";
+import { LIGHT } from "../Types/AlertTypes";
 
 const ImageUploader = ({ uploadedImage, setUploadedImage }) => {
   const imageInput = React.useRef();
   const attachmentRef = React.useRef();
   const [isShowingOptions, toggleShowingOptions] = useToggle(attachmentRef);
+  const theme = useSelector((state) => state.globalNotifications.theme);
 
   const options = [
     {
       name: "Upload Image",
-      icon: <BsImageFill size={20} color="#fff" />,
+      icon: <BsImageFill size={20} color={theme === LIGHT ? "#211f3b" : "#ffffff"} />,
       onClick: () => imageInput.current.click(),
     },
   ];
@@ -31,7 +34,7 @@ const ImageUploader = ({ uploadedImage, setUploadedImage }) => {
         ref={imageInput}
       />
       <div
-        className="attachment-options"
+        className={`attachment-options attachment-options-${theme}`}
         style={{ display: isShowingOptions ? "block" : "none" }}
       >
         {options.map((option, i) => (
@@ -43,7 +46,7 @@ const ImageUploader = ({ uploadedImage, setUploadedImage }) => {
       </div>
       <button
         onClick={() => toggleShowingOptions()}
-        className="attachment-uploader-button"
+        className={`attachment-uploader-button attachment-uploader-button-${theme}`}
         ref={attachmentRef}
       >
         <GrAttachment size={25} />

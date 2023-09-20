@@ -4,8 +4,8 @@ import "firebase/compat/auth"; //for user authentication
 
 import { FiLogOut } from "react-icons/fi";
 import { auth } from "../config/firebaseConfig";
-import { DANGER } from "../Types/AlertTypes";
-import { useDispatch } from "react-redux";
+import { DANGER, LIGHT } from "../Types/AlertTypes";
+import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "../reducer/globalNotificationsReducer";
 
 const SignOut = () => {
@@ -32,6 +32,7 @@ const SignOut = () => {
     }
   }
   const [isHovered, setIsHovered] = React.useState(false);
+  const theme = useSelector((state) => state.globalNotifications.theme);
 
   return (
     auth.currentUser && (
@@ -40,7 +41,12 @@ const SignOut = () => {
         onMouseOver={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <FiLogOut size={30} color={isHovered ? "#a5a2b2" : "#ffffff"} />
+        <FiLogOut
+          size={30}
+          color={
+            isHovered ? "#a5a2b2" : theme === LIGHT ? "#211f3b" : "#ffffff"
+          }
+        />
       </button>
     )
   );
