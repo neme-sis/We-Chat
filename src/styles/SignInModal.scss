@@ -53,6 +53,7 @@
     }
     > .user-detail-LIGHT {
       border: 1px solid $nonUserText;
+      color: $nonUserTextBg;
     }
     > .user-detail:focus + .input-label,
     > .user-detail:not(:placeholder-shown) + .input-label {
