@@ -1,22 +1,28 @@
 @import "../var.scss";
 .sign-in-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 68px);
   display: flex;
   width: 100%;
   align-items: center;
+  background: $backgroundDark;
+  color: #fff;
+}
+.sign-in-container-LIGHT {
+  color: $nonUserTextBg;
+  background: $backgroundLight;
 }
 .sign-in-container-image {
-  width: 100vh;
+  width: 90vh;
   background-image: url("../assets/2659380.png");
   background-size: 80% auto;
   background-repeat: no-repeat;
   background-position: center;
-  height: 100vh;
+  height: 90vh;
   @media screen and (max-width: $xl) {
-    width: 80vh;
+    width: 70vh;
   }
   @media screen and (max-width: $lg) {
-    width: 60vh;
+    width: 55vh;
   }
   @media screen and (max-width: $md) {
     display: none;
@@ -91,6 +97,16 @@
 
     > p {
       margin-left: 1rem;
+    }
+  }
+}
+.sign-in-container-LIGHT {
+  .sign-user-container {
+    border: 1px solid $nonUserTextBg;
+  }
+  .option-or{
+    >span{
+      background-color: $nonUserTextBg;
     }
   }
 }

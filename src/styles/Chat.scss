@@ -1,6 +1,6 @@
 @import "../var.scss";
 .chat-all {
-  max-height: calc(100vh - 83.2px - 4rem);
+  max-height: calc(100vh - 80px - 4rem);
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 10px;

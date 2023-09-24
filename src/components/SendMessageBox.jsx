@@ -2,8 +2,8 @@ import React, { Fragment } from "react";
 import "../styles/SendMessageBox.scss";
 import firebase from "firebase/compat/app"; //sdk import
 import { IoSend } from "react-icons/io5";
-import { DANGER } from "../Types/AlertTypes";
-import { useDispatch } from "react-redux";
+import { DANGER, LIGHT } from "../Types/AlertTypes";
+import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "../reducer/globalNotificationsReducer";
 import { v4 } from "uuid";
 import ImageUploader from "./ImageUploader";
@@ -19,6 +19,7 @@ const SendMessageBox = ({ goLast, messageCollection, dropArrow }) => {
   const sendBox = React.useRef();
   const sendInputBox = React.useRef();
   const dispatch = useDispatch();
+  const theme = useSelector((state) => state.globalNotifications.theme);
 
   async function uploadImageHandler(e) {
     e.preventDefault();
@@ -123,7 +124,10 @@ const SendMessageBox = ({ goLast, messageCollection, dropArrow }) => {
         sendBox={sendInputBox}
         onSubmit={(e) => submitImage(e)}
       />
-      <form onSubmit={send} className="send-message-wrapper">
+      <form
+        onSubmit={send}
+        className={`send-message-wrapper send-message-wrapper-${theme}`}
+      >
         <ImageUploader
           setUploadedImage={setUploadedImage}
           uploadedImage={uploadedImage}
@@ -141,7 +145,7 @@ const SendMessageBox = ({ goLast, messageCollection, dropArrow }) => {
           className="send-text"
           disabled={isMessageUploading}
         >
-          <IoSend color="#4d38a2" size={25} />
+          <IoSend color={"#4d38a2"} size={25} />
         </button>
       </form>
     </Fragment>

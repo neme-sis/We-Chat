@@ -8,7 +8,9 @@ import { FcGoogle } from "react-icons/fc";
 import "../styles/UserAuth.scss";
 import { DANGER } from "../Types/AlertTypes";
 import { showAlert } from "../reducer/globalNotificationsReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import ThemeTogglerButton from "../components/ThemeTogglerButton";
+import TopBar from "../components/TopBar";
 
 const UserAuth = ({ children, ...props }) => {
   const dispatch = useDispatch();
@@ -29,10 +31,13 @@ const UserAuth = ({ children, ...props }) => {
       );
     }
   }
+  
+  const theme = useSelector((state) => state.globalNotifications.theme);
 
   return (
     <>
-      <div className="sign-in-container">
+      <TopBar notSignedIn/>
+      <div className={`sign-in-container sign-in-container-${theme}`}>
         <div className="sign-in-container-content">
           <div className="sign-user-container">
             {children}

@@ -7,8 +7,8 @@ import { AiOutlineCopy as CopyIcon } from "react-icons/ai";
 import { RiDeleteBin6Fill as DeleteIcon } from "react-icons/ri";
 import { MdOutlineAddReaction as ReactIcon } from "react-icons/md";
 import useToggle from "../hooks/useToggle";
-import { SUCCESS } from "../Types/AlertTypes";
-import { useDispatch } from "react-redux";
+import { LIGHT, SUCCESS } from "../Types/AlertTypes";
+import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "../reducer/globalNotificationsReducer";
 import firebase from "firebase/compat/app"; //sdk import
 import "firebase/compat/firestore"; //for the database
@@ -118,24 +118,29 @@ const ChatMessage = ({
       name: <p>Copy</p>,
       icon: <CopyIcon size={20} />,
       onClick: () => copyToClipboard(text, (data) => dispatch(showAlert(data))),
+      show: true,
     },
     {
       name: <p style={{ color: "#d00" }}>Delete</p>,
       icon: <DeleteIcon size={20} color="#d00" />,
       onClick: () =>
         deleteMessage(message.messageId, (data) => dispatch(showAlert(data))),
+      show: textClass === "sent",
     },
     {
       name: <p>React</p>,
       icon: <ReactIcon size={20} />,
       onClick: () => {},
+      show: true,
     },
   ];
+
+  const theme = useSelector((state) => state.globalNotifications.theme);
 
   return (
     <Fragment>
       {!isSameDay && (
-        <div className="date-separator">
+        <div className={`date-separator date-separator-${theme}`}>
           <div className="line"></div>
           <div className="date">{timeStamp.toDateString()}</div>
           <div className="line"></div>
@@ -161,7 +166,9 @@ const ChatMessage = ({
             </p>
           </div>
         )}
-        <div className={`user-message user-message-${textClass}`}>
+        <div
+          className={`user-message user-message-${textClass} user-message-${textClass}-${theme}`}
+        >
           <div className="message-content">
             {image && (
               <div
@@ -203,15 +210,23 @@ const ChatMessage = ({
               </div>
             )}
           </div>
-          <div className="timestamp">
+          <div
+            className={`timestamp ${
+              textClass === "recieved" && `timestamp-${theme}`
+            }`}
+          >
             {hour}:{minute}
           </div>
           <div
-            className="three-dot"
+            className={`three-dot three-dot-${theme}`}
             onClick={messageOptionsHandler}
             ref={messageOptionsMenuToggler}
           >
-            <BsThreeDotsVertical color="#fff" />
+            <BsThreeDotsVertical
+              color={
+                theme === LIGHT && textClass === "recieved" ? "#211f3b" : "#fff"
+              }
+            />
           </div>
           <div
             className="message-handling-options"
@@ -223,6 +238,7 @@ const ChatMessage = ({
                 className="message-handling-option"
                 key={_}
                 onClick={opt.onClick}
+                style={{ display: opt.show ? "flex" : "none" }}
               >
                 {opt.icon && (
                   <div className="message-option-icon">{opt.icon}</div>

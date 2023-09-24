@@ -10,11 +10,18 @@
   background: $backgroundDark;
   z-index: 999;
 }
+.we-chat-loader-wrapper-LIGHT {
+  background: $backgroundLight;
+}
 .we-chat-loader {
   margin: 0;
   padding: 0;
   font-weight: 600;
   color: white;
+}
+
+.we-chat-loader-LIGHT {
+  color: $nonUserTextBg;
 }
 
 .we-chat-letter {
@@ -85,6 +92,14 @@
   }
 }
 
+.we-chat-logo_loader-wrapper {
+  background: $backgroundDark;
+  width: clamp(300px, 50%, 600px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+}
 .we-chat-logo_loader {
   width: 300px;
 }

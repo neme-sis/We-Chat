@@ -1,7 +1,7 @@
 @import "../var.scss";
 .send-message-wrapper {
   position: sticky;
-  bottom: 0;
+  bottom: -10px;
   width: 100%;
   background: #19142b;
   padding: 1rem 0;
@@ -25,6 +25,9 @@
     &::-webkit-scrollbar {
       display: none;
     }
+    &:focus {
+      outline: none;
+    }
   }
   > button {
     background-color: transparent;
@@ -39,6 +42,22 @@
     &:hover {
       border-radius: 50%;
       background-color: #280064;
+    }
+  }
+}
+.send-message-wrapper-LIGHT {
+  background: $backgroundLight;
+  border-top: 1px solid $nonUserTextBgLight;
+  > textarea {
+    color: $nonUserTextBg;
+    border: 1px solid userTextBg;
+    &::placeholder{
+      color: userTextBg;
+    }
+  }
+  >button{
+    &:hover{
+      background-color: #d7d7fc;
     }
   }
 }

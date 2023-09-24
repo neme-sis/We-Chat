@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { DARK, LIGHT } from "../Types/AlertTypes";
 
 const initialState = {
   alertComponent: {
@@ -8,6 +9,7 @@ const initialState = {
     description: "",
   },
   isGloballyLoading: false,
+  theme: localStorage.getItem("theme") || LIGHT,
 };
 
 const globalNotificationsReducer = createSlice({
@@ -34,9 +36,12 @@ const globalNotificationsReducer = createSlice({
     hideGlobalLoading: (state) => {
       state.isGloballyLoading = false;
     },
+    toggleTheme: (state) => {
+      state.theme = state.theme === LIGHT ? DARK : LIGHT;
+    },
   },
 });
 
-export const { showAlert, hideAlert, showGlobalLoading, hideGlobalLoading } =
+export const { showAlert, hideAlert, showGlobalLoading, hideGlobalLoading, toggleTheme } =
   globalNotificationsReducer.actions;
 export default globalNotificationsReducer.reducer;

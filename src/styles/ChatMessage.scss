@@ -18,6 +18,16 @@
     text-transform: uppercase;
   }
 }
+.date-separator-LIGHT{
+  > .line {
+    background-color: $nonUserTextBg;
+    opacity: 0.7;
+  }
+  > .date {
+    color: $nonUserTextBg;
+    opacity: 1;
+  }
+}
 .chat {
   display: flex;
   flex-direction: column;
@@ -54,6 +64,7 @@
 }
 .user-message {
   padding: 0.75rem 1rem;
+  padding-right: 1.5rem;
   border-radius: 10px;
   word-wrap: break-word;
   min-width: 65px;
@@ -119,10 +130,13 @@
       bottom: 0.25rem;
     }
   }
+  >.timestamp-LIGHT{
+    color: $nonUserTextBg;
+  }
   > .three-dot {
     position: absolute;
     top: 10px;
-    right: 0px;
+    right: .25rem;
     display: none;
     cursor: pointer;
     border-radius: 50%;
@@ -174,6 +188,10 @@
 .user-message-recieved {
   background-color: $nonUserTextBg;
   color: $nonUserText;
+}
+.user-message-recieved-LIGHT{
+  background-color: #e6e5ef;
+  color: $nonUserTextBg;
 }
 .chat {
   .user-message {
